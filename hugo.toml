@@ -1,0 +1,74 @@
+baseURL = "https://kb.wemy.ninja/"
+title = "wemy.ninja KB"
+enableRobotsTXT = true
+enableGitInfo = true          # "Last modified" from git history (CI fetches full history)
+
+# Docsy installed from npm (@docsy/theme)
+theme = "@docsy/theme"
+themesDir = "node_modules"
+
+# Content lives under content/en/ so a second language is a config change, not a migration.
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[module.hugoVersion]
+  extended = true
+  min = "0.160.1"
+
+[languages.en]
+  label = "English"
+  weight = 1
+  contentDir = "content/en"
+  [languages.en.params]
+    description = "Personal knowledge base of wem"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  section = ["HTML", "RSS", "print"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true           # allow raw HTML from converted notes
+    [markup.goldmark.parser.attribute]
+      block = true
+  [markup.highlight]
+    noClasses = false         # Chroma via CSS classes (light/dark aware)
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+[params]
+  copyright = { authors = "wem", from_year = 2026 }
+  github_repo = "https://github.com/wem-r/kb.wemy.ninja"
+  github_branch = "main"
+  github_project_repo = "https://github.com/wem-r/kb.wemy.ninja"
+  offlineSearch = true        # Lunr search, no external service
+  prism_syntax_highlighting = false
+
+  [params.ui]
+    showLightDarkModeMenu = true
+    sidebar_menu_compact = true
+    sidebar_menu_foldable = true
+    sidebar_search_disable = false
+    breadcrumb_disable = false
+    navbar_logo = true
+    [params.ui.feedback]
+      enable = false
+    [params.ui.readingtime]
+      enable = true
+
+  [params.links]
+    [[params.links.user]]
+      name = "GitHub"
+      url = "https://github.com/wem-r"
+      icon = "fa-brands fa-github"
+      desc = "GitHub"
+    [[params.links.user]]
+      name = "wemy.ninja"
+      url = "https://wemy.ninja/"
+      icon = "fa-solid fa-house"
+      desc = "Main site"

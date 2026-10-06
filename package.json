@@ -1,0 +1,22 @@
+{
+  "name": "kb.wemy.ninja",
+  "scripts": {
+    "hugo": "hugo",
+    "serve": "hugo server --buildDrafts --disableFastRender",
+    "build": "hugo --gc --minify",
+    "clean": "rm -rf public resources/_gen .hugo_build.lock"
+  },
+  "devDependencies": {
+    "@docsy/theme": "0.17.0",
+    "hugo-extended": "0.164.0",
+    "sass-embedded": "1.102.0"
+  },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=11"
+  },
+  "private": true,
+  "allowScripts": {
+    "hugo-extended@0.164.0": true
+  }
+}

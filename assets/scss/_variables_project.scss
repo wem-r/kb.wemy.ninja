@@ -1,0 +1,11 @@
+// Project variables — loaded BEFORE Bootstrap, so Bootstrap/Docsy defaults
+// pick these up. Branding goes here (phase 2).
+//
+// Docsy 0.17+ compiles with Dart Sass. Font Awesome is v7.
+
+$primary: #30638e;
+$secondary: #ffa630;
+
+// $font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+// $enable-gradients: false;
+// $enable-shadows: false;
