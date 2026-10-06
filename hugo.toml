@@ -4,8 +4,9 @@ enableRobotsTXT = true
 enableGitInfo = true          # "Last modified" from git history (CI fetches full history)
 
 # Docsy installed from npm (@docsy/theme)
-theme = "@docsy/theme"
-themesDir = "node_modules"
+# theme = "@docsy/theme"
+# themesDir = "node_modules"
+theme = "docsy/theme"
 
 # Content lives under content/en/ so a second language is a config change, not a migration.
 defaultContentLanguage = "en"
