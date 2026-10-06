@@ -1,0 +1,4 @@
+[submodule "themes/docs"]
+	path = themes/docs
+	url = https://github.com/wem-r/docsy.git
+	branch = wem

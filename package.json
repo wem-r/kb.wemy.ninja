@@ -4,10 +4,10 @@
     "hugo": "hugo",
     "serve": "hugo server --buildDrafts --disableFastRender",
     "build": "hugo --gc --minify",
-    "clean": "rm -rf public resources/_gen .hugo_build.lock"
+    "clean": "rm -rf public resources/_gen .hugo_build.lock",
+    "prepare": "git submodule update --init && npm --prefix themes/docsy run install:theme-deps"
   },
   "devDependencies": {
-    "@docsy/theme": "0.17.0",
     "hugo-extended": "0.164.0",
     "sass-embedded": "1.102.0"
   },
