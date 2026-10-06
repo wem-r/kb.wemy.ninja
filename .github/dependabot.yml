@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: npm          # Docsy, Hugo, Sass
+    directory: /
+    schedule: { interval: monthly }
+    groups:
+      site-toolchain:
+        patterns: ["@docsy/theme", "hugo-extended", "sass-embedded"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
