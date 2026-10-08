@@ -84,4 +84,4 @@ defaultContentLanguageInSubdir = false
     weight = 40
     
 [markup.goldmark.renderHooks.link]
-  enableDefault = true
+  useEmbedded = "fallback"   # resolve [text](Page.md) links to page URLs
