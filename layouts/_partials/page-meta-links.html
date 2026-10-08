@@ -1,0 +1,20 @@
+{{/* Overrides Docsy's page-meta-links.html (right sidebar, above the ToC).
+     Keeps only a "Page source" link and the last-modified date.
+     Docsy's edit / child page / issue / print links are removed on purpose. */ -}}
+{{ if .File -}}
+{{ $path := strings.TrimPrefix (add hugo.WorkingDir "/") .File.Filename -}}
+{{ $repo := .Param "github_repo" -}}
+{{ $branch := .Param "github_branch" | default "main" -}}
+<div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+  {{ with $repo -}}
+  <a href="{{ printf "%s/blob/%s/%s" . $branch $path }}" class="td-page-meta__view" target="_blank" rel="noopener">
+    <i class="fa-solid fa-file-lines"></i> Page source
+  </a>
+  {{ end -}}
+  {{ if not $.Lastmod.IsZero -}}
+  <span class="td-page-meta__date">
+    <i class="fa-regular fa-clock"></i> Last modified {{ $.Lastmod.Format "Jan 2, 2006" }}
+  </span>
+  {{ end -}}
+</div>
+{{ end -}}
