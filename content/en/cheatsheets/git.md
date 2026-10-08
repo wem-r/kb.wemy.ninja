@@ -1,7 +1,7 @@
 ---
 title: Git
 description: Everyday Git commands.
-weight: 10
+weight: 20
 tags: [git]
 ---
 
