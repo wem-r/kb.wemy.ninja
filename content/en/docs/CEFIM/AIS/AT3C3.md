@@ -1,5 +1,5 @@
 ---
-title: "- AT3C3"
+title: "AT3C3"
 description: 
 ---
 
