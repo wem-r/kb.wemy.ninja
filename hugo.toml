@@ -60,7 +60,7 @@ defaultContentLanguageInSubdir = false
     [params.ui.feedback]
       enable = false
     [params.ui.readingtime]
-      enable = true
+      enable = false
 
   [params.links]
     [[params.links.user]]
