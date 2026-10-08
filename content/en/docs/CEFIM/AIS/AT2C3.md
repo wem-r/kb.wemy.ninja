@@ -1,4 +1,6 @@
 ---
-title: "AT2C3 - Administrer les services dans une infrastructure distribuée"
+title: "AT2C3"
 description: 
 ---
+
+# Administrer les services dans une infrastructure distribuée
