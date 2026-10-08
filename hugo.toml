@@ -82,3 +82,6 @@ defaultContentLanguageInSubdir = false
     name = "Tools"
     url = "https://tools.wemy.ninja/"
     weight = 40
+    
+[markup.goldmark.renderHooks.link]
+  enableDefault = true
