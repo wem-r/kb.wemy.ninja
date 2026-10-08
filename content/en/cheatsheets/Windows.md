@@ -2,13 +2,12 @@
 title: Windows
 description: 
 weight: 10
-tags: [windows]
+tags: [windows] 
 ---
 
 
-{{< details summary="**Disable Windows Consumer Features — Cheatsheet (Win10 / Win11)**" >}}
+{{< details summary="**Disable Windows Consumer Feature**" >}}
  
-Stops Windows from auto-installing promoted apps (Candy Crush, TikTok, Spotify…), Start menu suggestions, and "tips & tricks" content.
  
 ### 1. Main policy key (machine-wide)
  
@@ -94,5 +93,93 @@ Windows Registry Editor Version 5.00
 - Apply **before** first user logon (e.g. during imaging / OOBE). Promo apps that are already installed are not removed; uninstall them manually or with `Get-AppxPackage | Remove-AppxPackage`.
 - Run `gpupdate /force` or reboot after the HKLM change.
 - Revert: delete the values (or set policy data to `0`, user data to `1`).
+{{< /details >}}
+
+
+
+
+{{< details summary="**Disable Telemetry**" >}}
+
+### 1. Main policy key (machine-wide)
+
+| Item | Value |
+|---|---|
+| Path | `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection` |
+| Name | `AllowTelemetry` |
+| Type | `REG_DWORD` |
+| Data | `0` |
+
+GPO equivalent: *Computer Configuration → Administrative Templates → Windows Components → Data Collection and Preview Builds → Allow Diagnostic Data* (Win10: *Allow Telemetry*) → **Enabled**, *Diagnostic data off*
+
+{{< alert title="Edition limit" color="warning" >}}
+`0` (Security / off) is honored only on **Enterprise / Education / Server**. On **Home and Pro** it is treated as `1` (Required). To cut more on those editions, also disable the service and tasks in sections 3 and 4.
+{{< /alert >}}
+
+**Optional companions (same key)**
+
+| Name | Type | Data | Effect |
+|---|---|---|---|
+| `AllowDeviceNameInTelemetry` | REG_DWORD | `0` | Don't send device name |
+| `DoNotShowFeedbackNotifications` | REG_DWORD | `1` | No feedback prompts |
+| `LimitDiagnosticLogCollection` | REG_DWORD | `1` | No extra diagnostic logs |
+| `LimitDumpCollection` | REG_DWORD | `1` | Limit crash dump upload |
+
+### 2. Related keys
+
+| Path | Name | Data | Effect |
+|---|---|---|---|
+| `HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo` | `DisabledByGroupPolicy` | `1` | Turn off advertising ID |
+| `HKCU\Software\Policies\Microsoft\Windows\CloudContent` | `DisableTailoredExperiencesWithDiagnosticData` | `1` | No tailored experiences |
+| `HKCU\Software\Microsoft\Siuf\Rules` | `NumberOfSIUFInPeriod` | `0` | Feedback frequency: never |
+
+All `REG_DWORD`.
+
+### 3. Telemetry service (admin CMD)
+
+```bat
+sc stop DiagTrack
+sc config DiagTrack start= disabled
+```
+
+`DiagTrack` = *Connected User Experiences and Telemetry*. (Space after `start=` is required.)
+
+### 4. Scheduled tasks (admin CMD)
+
+```bat
+schtasks /Change /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable
+schtasks /Change /TN "\Microsoft\Windows\Application Experience\ProgramDataUpdater" /Disable
+schtasks /Change /TN "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /Disable
+schtasks /Change /TN "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /Disable
+```
+
+Some of these tasks don't exist on every build. An "cannot find the file" error just means that task is absent.
+
+### 5. .reg file
+
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+"AllowTelemetry"=dword:00000000
+"AllowDeviceNameInTelemetry"=dword:00000000
+"DoNotShowFeedbackNotifications"=dword:00000001
+"LimitDiagnosticLogCollection"=dword:00000001
+"LimitDumpCollection"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo]
+"DisabledByGroupPolicy"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\CloudContent]
+"DisableTailoredExperiencesWithDiagnosticData"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Siuf\Rules]
+"NumberOfSIUFInPeriod"=dword:00000000
+```
+
+### Notes
+
+- Reboot or run `gpupdate /force` after applying.
+- Feature updates can re-enable `DiagTrack` and the tasks; re-check after big upgrades.
+- Revert: delete the policy values, `sc config DiagTrack start= auto`, and `/Enable` the tasks.
 {{< /details >}}
 
