@@ -1,11 +1,16 @@
 // Project variables — loaded BEFORE Bootstrap, so Bootstrap/Docsy defaults
-// pick these up. Branding goes here (phase 2).
+// pick these up.
 //
 // Docsy 0.17+ compiles with Dart Sass. Font Awesome is v7.
 
 $primary: #30638e;
 $secondary: #ffa630;
 
-// $font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-// $enable-gradients: false;
-// $enable-shadows: false;
+// Font: Roboto Mono (Google Fonts), for body text, headings and code.
+$td-enable-google-fonts: true;
+$td-google-font-name: 'Roboto Mono';
+$td-google-font-family: 'Roboto+Mono:300,300i,400,400i,700,700i';
+
+// Fallbacks if the web font can't load: monospace system fonts.
+$td-fonts-serif: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+$font-family-monospace: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
