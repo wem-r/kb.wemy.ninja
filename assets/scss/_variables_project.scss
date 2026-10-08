@@ -6,11 +6,9 @@
 $primary: #30638e;
 $secondary: #ffa630;
 
-// Font: Roboto Mono (Google Fonts), for body text, headings and code.
-$td-enable-google-fonts: true;
-$td-google-font-name: 'Roboto Mono';
-$td-google-font-family: 'Roboto+Mono:300,300i,400,400i,700,700i';
-
-// Fallbacks if the web font can't load: monospace system fonts.
-$td-fonts-serif: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-$font-family-monospace: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+// Font: Roboto Mono everywhere (self-hosted, see static/fonts/ and the
+// @font-face rules in _styles_project.scss). No Google Fonts request.
+$td-enable-google-fonts: false;
+$roboto-mono-stack: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+$font-family-sans-serif: $roboto-mono-stack;   // body, headings, navbar, sidebar, buttons, forms
+$font-family-monospace: $roboto-mono-stack;    // code blocks and inline code
