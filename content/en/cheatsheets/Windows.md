@@ -183,3 +183,55 @@ Windows Registry Editor Version 5.00
 - Revert: delete the policy values, `sc config DiagTrack start= auto`, and `/Enable` the tasks.
 {{< /details >}}
 
+
+
+
+{{< details summary="**KMS Activation**" >}}
+
+### 1. Commands, in order (admin CMD)
+:: 1. Install the KMS client key (GVLK) for your edition
+:: 2. Point to the KMS host (port 1688 by default)
+:: 3. Activate
+
+```bat
+slmgr /ipk XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
+slmgr /skms kms.server.com
+slmgr /ato
+```
+
+Key first, then the host, then activate. `/skms` is optional if the KMS host is published in DNS (`_vlmcs._tcp` SRV record); the client finds it on its own.
+
+### 2. GVLKs — Windows 10 / 11
+
+| Edition | KMS client key |
+|---|---|
+| Pro | `W269N-WFGWX-YVC9B-4J6C9-T83GX` |
+| Pro N | `MH37W-N47XK-V7XM9-C7227-GCQG9` |
+| Pro for Workstations | `NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J` |
+| Pro Education | `6TP4R-GNPTD-KYYHQ-7B7DP-J447Y` |
+| Education | `NW6C2-QMPVW-D7KKK-3GKT6-VCFB2` |
+| Enterprise | `NPPR9-FWDCX-D2C8J-H872K-2YT43` |
+| Enterprise N | `DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4` |
+
+Other editions (LTSC, Server…): [KMS client activation keys — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys?tabs=windows1110ltsc%2Cwindows81%2Cserver2025%2Cversion1803)
+
+{{< alert title="Requirement" color="info" >}}
+A GVLK only activates against a licensed KMS host on your network. These keys are public on their own; they don't activate anything without one.
+{{< /alert >}}
+
+### 3. Useful extras
+
+| Command | Effect |
+|---|---|
+| `slmgr /dlv` | Detailed license info (edition, KMS host, expiry) |
+| `slmgr /xpr` | Show activation expiry date |
+| `slmgr /skms kms.server.com:1688` | Set host with a custom port |
+| `slmgr /ckms` | Clear the manual KMS host (back to DNS discovery) |
+| `slmgr /upk` | Uninstall the current product key |
+
+### Notes
+
+- KMS activation lasts 180 days; the client renews automatically every 7 days while it can reach the host.
+- Activation needs at least 25 clients (Windows client) or 5 (Server) checked in on the host.
+- Error `0xC004F074` = KMS host unreachable: check DNS, port 1688 and firewall.
+{{< /details >}}
