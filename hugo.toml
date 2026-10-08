@@ -21,7 +21,7 @@ defaultContentLanguageInSubdir = false
   weight = 1
   contentDir = "content/en"
   [languages.en.params]
-    description = "Personal knowledge base of wem"
+    description = "Wem's (shitty) knowledge base"
 
 [taxonomies]
   tag = "tags"
@@ -70,7 +70,7 @@ defaultContentLanguageInSubdir = false
       desc = "GitHub"
     [[params.links.user]]
       name = "wemy.ninja"
-      url = "https://wemy.ninja/"
+      url = "https://kb.wemy.ninja/"
       icon = "fa-solid fa-house"
       desc = "Main site"
 
