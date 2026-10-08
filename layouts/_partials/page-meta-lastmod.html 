@@ -1,0 +1,3 @@
+{{/* Overrides Docsy's page-meta-lastmod.html: intentionally empty.
+     The "Last modified … (commit)" footer line is replaced by the date
+     shown next to "Page source" (see page-meta-links.html). */ -}}

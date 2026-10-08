@@ -1,2 +1,11 @@
 // Project styles — loaded AFTER Docsy's own styles. Put overrides of
 // Docsy/Bootstrap rules here (phase 2).
+
+
+// Right-sidebar page meta: "Page source" + "Last modified"
+.td-page-meta__date {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+  margin-bottom: 0.25rem;
+}
