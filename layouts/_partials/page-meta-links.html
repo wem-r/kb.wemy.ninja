@@ -13,7 +13,7 @@
   {{ end -}}
   {{ if not $.Lastmod.IsZero -}}
   <span class="td-page-meta__date">
-    <i class="fa-regular fa-clock"></i> Last modified {{ $.Lastmod.Format "Jan 2, 2006" }}
+    <i class="fa-regular fa-clock"></i> Last modified <span class="text-nowrap">{{ $.Lastmod.Format "Jan 2, 2006" }}</span>
   </span>
   {{ end -}}
 </div>
