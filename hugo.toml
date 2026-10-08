@@ -1,5 +1,5 @@
 baseURL = "https://kb.wemy.ninja/"
-title = "wemy.ninja KB"
+title = "Wem"
 enableRobotsTXT = true
 enableGitInfo = true          # "Last modified" from git history (CI fetches full history)
 
@@ -73,3 +73,12 @@ defaultContentLanguageInSubdir = false
       url = "https://wemy.ninja/"
       icon = "fa-solid fa-house"
       desc = "Main site"
+
+# Navbar entries for sites outside this repo (internal sections add
+# themselves via `menu:` in their _index.md front matter).
+
+[menus]
+  [[menus.main]]
+    name = "Tools"
+    url = "https://tools.wemy.ninja/"
+    weight = 40
