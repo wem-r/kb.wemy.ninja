@@ -1,4 +1,6 @@
 ---
-title: "AT1C2 - Administrer et sécuriser un environnement système hétérogène"
+title: "AT1C2"
 description: 
 ---
+
+# Administrer et sécuriser un environnement système hétérogène

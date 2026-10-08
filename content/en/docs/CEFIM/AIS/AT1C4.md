@@ -1,4 +1,6 @@
 ---
-title: "AT1C4 - Appliquer les bonnes pratiques et participer à la qualité de service"
+title: "AT1C4"
 description: 
 ---
+
+# Appliquer les bonnes pratiques et participer à la qualité de service

@@ -1,4 +1,6 @@
 ---
-title: "AT3C2 - Conduite de Projet - Webinaire"
+title: "AT3C2"
 description: 
 ---
+
+# Conduite de Projet - Webinaire
