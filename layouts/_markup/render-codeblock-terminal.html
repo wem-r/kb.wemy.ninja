@@ -1,0 +1,32 @@
+{{- /*
+`````terminal                       → terminal window, no title
+````terminal {title="debian — ssh"}  → title in the window bar
+
+  Lines that start with a shell prompt get the prompt in mint and the command
+  syntax-highlighted as bash; every other line is shown as plain output.
+  Recognised prompts:  user@host$  user@host:~/dir#  [user@host dir]$  $  #
+                       PS C:\path>  C:\path>  ❯
+*/ -}}
+{{- $promptRE := `^((?:\[[^\]]+\]|[\w.-]+@[\w.-]+(?::[^\s$#%]*)?)\s?[$#%]|[$#%❯]|PS [^>]*>|[A-Za-z]:\\[^>]*>)( +)(.*)$` -}}
+{{- $title := .Attributes.title | default "" -}}
+<div class="td-terminal">
+  <div class="td-terminal__bar" aria-hidden="true">
+    <span class="td-terminal__dot td-terminal__dot--close"></span>
+    <span class="td-terminal__dot td-terminal__dot--min"></span>
+    <span class="td-terminal__dot td-terminal__dot--max"></span>
+    {{- with $title }}<span class="td-terminal__title">{{ . }}</span>{{ end }}
+  </div>
+  <pre class="td-terminal__body"><code>
+    {{- range $i, $line := split (strings.TrimRight "\n" .Inner) "\n" -}}
+      {{- if $i }}{{ "\n" }}{{ end -}}
+      {{- $m := findRESubmatch $promptRE $line 1 -}}
+      {{- if $m -}}
+        {{- $parts := index $m 0 -}}
+        <span class="td-terminal__prompt">{{ index $parts 1 }}</span>{{ index $parts 2 -}}
+        <span class="td-terminal__cmd">{{ with index $parts 3 }}{{ transform.Highlight . "bash" "hl_inline=true" }}{{ end }}</span>
+      {{- else -}}
+        <span class="td-terminal__out">{{ $line }}</span>
+      {{- end -}}
+    {{- end -}}
+  </code></pre>
+</div>

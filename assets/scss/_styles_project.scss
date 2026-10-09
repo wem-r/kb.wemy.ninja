@@ -70,6 +70,131 @@ body, button, input, select, textarea, .btn, .navbar-brand, .td-search__input {
     max-width: none;
   }
 }
+// ---------------------------------------------------------------------------
+// Syntax highlighting (Chroma classes) — navy/mint palette.
+// Docsy only ships its Chroma colours with the light/dark toggle, which this
+// site disables, so the token colours are defined here.
+// ---------------------------------------------------------------------------
+$syn-keyword:  $wem-mint;
+$syn-string:   #f2c97d;
+$syn-number:   #f78c6c;
+$syn-comment:  #6b84a3;
+$syn-function: #82aaff;
+$syn-builtin:  #7fd4ff;
+$syn-class:    #ffcb6b;
+$syn-variable: #f07178;
+$syn-attr:     #c3e88d;
+$syn-deco:     #c792ea;
+$syn-operator: #89ddff;
+
+.chroma {
+  color: $wem-text;
+  background-color: $wem-navy-2;
+}
+
+// Token colours: fenced code blocks (.chroma) and commands in ```terminal blocks
+.chroma,
+.td-terminal__cmd {
+  .line { display: flex; }
+  .hl   { background-color: $wem-navy-3; display: block; }
+  .ln, .lnt { color: $syn-comment; margin-right: .6em; user-select: none; }
+  .err  { color: #ff6b6b; }
+
+  .k, .kc, .kd, .kn, .kp, .kr, .kt { color: $syn-keyword; }
+  .kc, .kd, .kn, .kr { font-weight: 600; }
+
+  .n, .nx, .p { color: $wem-text; }
+  .nb, .bp, .nl, .nn          { color: $syn-builtin; }
+  .nf, .fm                    { color: $syn-function; }
+  .nc, .ne, .no               { color: $syn-class; }
+  .nv, .vc, .vg, .vi, .vm, .nvi { color: $syn-variable; }
+  .na, .nt                    { color: $syn-attr; }
+  .nd                         { color: $syn-deco; }
+
+  .s, .sa, .sb, .sc, .dl, .sd, .s1, .s2, .sh, .sx, .ss { color: $syn-string; }
+  .se, .si, .sr { color: $syn-operator; }
+
+  .m, .mb, .mf, .mh, .mi, .il, .mo { color: $syn-number; }
+
+  .o  { color: $syn-operator; }
+  .ow { color: $syn-keyword; font-weight: 600; }
+
+  .c, .ch, .cm, .c1, .cs, .cp, .cpf { color: $syn-comment; font-style: italic; }
+
+  .gd { color: #ff6b6b; }          // diff: removed
+  .gi { color: $wem-mint; }        // diff: added
+  .gh, .gu { color: $syn-function; font-weight: 600; }
+  .gp { color: $wem-mint; }        // console prompt
+  .go { color: $wem-text-muted; }  // console output
+  .ge { font-style: italic; }
+  .gs { font-weight: 700; }
+}
+
+// ---------------------------------------------------------------------------
+// ```terminal blocks — window frame (layouts/_markup/render-codeblock-terminal.html)
+// ---------------------------------------------------------------------------
+$term-bg:  #020a14;   // darker than the page, like a real terminal
+$term-bar: #10263f;
+
+.td-content .td-terminal {
+  margin: 1.5rem 0;
+  border: 1px solid $wem-mint;
+  border-radius: .5rem;
+  overflow: hidden;
+  background: $term-bg;
+  box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .45);
+
+  .td-terminal__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    height: 1.9rem;
+    padding: 0 .75rem;
+    background: $term-bar;
+    border-bottom: 1px solid rgba($wem-mint, .35);
+  }
+  .td-terminal__dot {
+    width: .7rem;
+    height: .7rem;
+    border-radius: 50%;
+    &--close { background: #ff5f57; }
+    &--min   { background: #febc2e; }
+    &--max   { background: #28c840; }
+  }
+  .td-terminal__title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    pointer-events: none;
+    font-size: .8em;
+    color: $wem-text-muted;
+  }
+
+  pre.td-terminal__body {
+    margin: 0;
+    padding: 1rem 1.1rem;
+    max-width: none;
+    border: 0;
+    border-radius: 0;
+    background: $term-bg;
+    color: $wem-text;
+    overflow-x: auto;
+
+    code {
+      background: none !important;
+      padding: 0;
+      color: inherit;
+      white-space: pre;
+    }
+  }
+
+  .td-terminal__prompt { color: $wem-mint; font-weight: 600; }
+  .td-terminal__cmd    { color: #ffffff; }
+  .td-terminal__cmd code { color: #ffffff; }   // inline-highlighted bash
+  .td-terminal__out    { color: $wem-text; }
+}
 // Right-sidebar page meta: "Page source" + "Last modified"
 .td-page-meta__date {
   display: block;
