@@ -3,12 +3,47 @@
 //
 // Docsy 0.17+ compiles with Dart Sass. Font Awesome is v7.
 
-$primary: #30638e;
-$secondary: #ffa630;
+// ---------------------------------------------------------------------------
+// Palette — the site is dark-only (see layouts/_partials/hooks/head-end.html)
+// ---------------------------------------------------------------------------
+$wem-navy:       #061425;   // page background
+$wem-navy-2:     #0b1f36;   // raised surfaces: navbar, sidebars, code, cards
+$wem-navy-3:     #12304f;   // hover / selected backgrounds
+$wem-mint:       #70e9c0;   // lines, separators, links, accents
+$wem-text:       #d8e3ef;   // body text
+$wem-text-muted: #8aa0b8;   // secondary text
 
+$primary:   $wem-mint;
+$secondary: $wem-navy-3;
+$dark:      $wem-navy-2;   // home-page cover block and footer
+
+// Bootstrap dark-mode tokens
+$body-bg-dark:              $wem-navy;
+$body-secondary-bg-dark:    $wem-navy-2;
+$body-tertiary-bg-dark:     $wem-navy-2;
+$body-color-dark:           $wem-text;
+$body-secondary-color-dark: $wem-text-muted;
+$body-emphasis-color-dark:  #ffffff;
+$border-color-dark:         $wem-mint;
+$link-color-dark:           $wem-mint;
+$link-hover-color-dark:     #a8f3d9;
+$headings-color-dark:       #ffffff;
+$code-color-dark:           $wem-mint;
+
+// ---------------------------------------------------------------------------
 // Font: Roboto Mono everywhere (self-hosted, see static/fonts/ and the
 // @font-face rules in _styles_project.scss). No Google Fonts request.
+// ---------------------------------------------------------------------------
 $td-enable-google-fonts: false;
 $roboto-mono-stack: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 $font-family-sans-serif: $roboto-mono-stack;   // body, headings, navbar, sidebar, buttons, forms
 $font-family-monospace: $roboto-mono-stack;    // code blocks and inline code
+$font-size-base: 0.8125rem;                    // 13px — monospace runs wide; Bootstrap default is 1rem
+
+// Heading scale relative to the base size (Bootstrap default: 2.5 / 2 / 1.75 / 1.5 / 1.25 / 1)
+$h1-font-size: $font-size-base * 2;
+$h2-font-size: $font-size-base * 1.6;
+$h3-font-size: $font-size-base * 1.35;
+$h4-font-size: $font-size-base * 1.15;
+$h5-font-size: $font-size-base * 1.05;
+$h6-font-size: $font-size-base;                   // 14px — monospace runs wide; Bootstrap default is 1rem

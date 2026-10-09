@@ -31,7 +31,45 @@ $_latin-ext: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+
 body, button, input, select, textarea, .btn, .navbar-brand, .td-search__input {
   font-family: var(--bs-body-font-family);
 }
+// ---------------------------------------------------------------------------
+// Navy / mint theme — things Bootstrap's dark tokens don't reach
+// ---------------------------------------------------------------------------
+[data-bs-theme='dark'] {
+  --td-pre-bg: #{$wem-navy-2};
 
+  // Code: blocks, highlighted blocks and inline code on raised navy
+  .chroma,
+  .highlight pre,
+  .td-content pre,
+  .td-content :not(pre) > code {
+    background-color: $wem-navy-2;
+  }
+  .td-content :not(pre) > code {
+    color: $wem-mint;
+  }
+
+  // Section-title underlines (sidebar root, "On this page", "Tags") in mint
+  .td-sidebar-nav .td-sidebar-link.tree-root,
+  .td-toc-title,
+  .taxonomy-terms-cloud .taxonomy-title {
+    border-bottom-color: $wem-mint;
+  }
+}
+// ---------------------------------------------------------------------------
+// Full-width content: Docsy caps text, code, tables, alerts… at 80% of the
+// content column on large screens (.td-max-width-on-larger-screens). Lift it.
+// ---------------------------------------------------------------------------
+@media (min-width: 992px) {
+  .td-max-width-on-larger-screens,
+  .td-card.card,
+  .td-card-group.card-group,
+  .td-content > *,
+  .td-content > .tab-content .tab-pane,
+  .td-content .footnotes,
+  .td-content > dl dd {
+    max-width: none;
+  }
+}
 // Right-sidebar page meta: "Page source" + "Last modified"
 .td-page-meta__date {
   display: block;

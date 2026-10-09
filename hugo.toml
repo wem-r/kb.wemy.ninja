@@ -51,7 +51,7 @@ defaultContentLanguageInSubdir = false
   prism_syntax_highlighting = false
 
   [params.ui]
-    showLightDarkModeMenu = true
+    showLightDarkModeMenu = false
     sidebar_menu_compact = true
     sidebar_menu_foldable = true
     sidebar_search_disable = false
