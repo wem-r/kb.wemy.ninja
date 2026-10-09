@@ -95,14 +95,14 @@ Livrable:
 
 ### **Configuration NTP**
 
-```bash
-cmd : w32tm /config /update /manualpeerlist:"ntp.unice.fr”
+```terminal {title="Windows - cmd"}
+w32tm /config /update /manualpeerlist:"ntp.unice.fr”
 ```
 
 Résultat test OK sur un PC client du domaine :
 
-```bash
-cmd : w32tm /query /status
+```terminal {title="Windows - cmd"}
+w32tm /query /status
 ```
 
 ![](https://lh4.googleusercontent.com/QRuvDskfgFgJtqfT_XhPWykD62hWQh-AhUmjfxXoIN3yTc3M6i5zX0K_sWdJc6DTtlmpOXmafepmWblYWOImM9bGg6TM5H2FxZYN20Yol0L9WSkXSkQUC5FFvbVGo1PN4_o34HXU)
@@ -297,7 +297,7 @@ Il y a moyen de bidouiller un peu pour faire un serveur sftp mais un plugin exis
 
 Malheureusement il ne se trouve pas dans les Plugins par défaut, il faut donc installer les OMV-Extras. Pour ça il faut se connecter en SSH, ou directement dans un shell sur la machine, puis entrez cette commande:
 
-```bash
+```terminal {title="Windows - cmd"}
 wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash
 ```
 
@@ -522,7 +522,7 @@ Pour la configuration du Pfsense du site B, on applique la même chose en n'oubl
 
 Commandes :
 
-```
+```terminal {title="cisco IOS"}
 en
 config
 interface range gigabitEthernet 0/1 - 2
