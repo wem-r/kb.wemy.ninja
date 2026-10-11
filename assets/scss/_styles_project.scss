@@ -195,6 +195,14 @@ $term-bar: #10263f;
   .td-terminal__cmd code { color: #ffffff; }   // inline-highlighted bash
   .td-terminal__out    { color: $wem-text; }
 }
+// ---------------------------------------------------------------------------
+// Images: an image alone in its paragraph is centred (replaces <p align="center">)
+// ---------------------------------------------------------------------------
+.td-content p > img:only-child {
+  display: block;
+  margin: 1rem auto;
+}
+
 // Right-sidebar page meta: "Page source" + "Last modified"
 .td-page-meta__date {
   display: block;
