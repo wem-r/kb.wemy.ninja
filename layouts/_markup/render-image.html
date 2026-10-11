@@ -1,0 +1,43 @@
+{{- /*
+  Markdown images: ![alt](path "optional title")
+
+  Resolves a relative path the way Obsidian does — from the note's own folder —
+  and outputs the published URL. Lookup order:
+    1. the page's own resources (page bundle: note/index.md + image next to it)
+    2. the resources of the page's section (folder with _index.md),
+       e.g. AIS/AT2C1.md → ![](IMG/x.png) → AIS/IMG/x.png
+    3. Obsidian "shortest path" style — a bare file name, e.g. ![](x.png):
+       the first file with that name anywhere in the page bundle or section
+  Absolute paths and external URLs are left untouched. If nothing is found,
+  the build prints a warning with the page and the path.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $u := urls.Parse $dest -}}
+{{- $src := $dest -}}
+{{- if and (not $u.IsAbs) (not (strings.HasPrefix $u.Path "/")) .Page.File -}}
+  {{- $r := .Page.Resources.Get $u.Path -}}
+  {{- if not $r -}}
+    {{- $full := path.Join .Page.File.Dir $u.Path -}}
+    {{- with .Page.CurrentSection -}}
+      {{- with .File -}}
+        {{- $rel := strings.TrimPrefix (printf "%s/" (path.Clean .Dir)) $full -}}
+        {{- $r = $.Page.CurrentSection.Resources.Get $rel -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and (not $r) (ne $u.Path "") -}}
+    {{- $name := path.Base $u.Path -}}
+    {{- $glob := printf "{%s,**/%s}" $name $name -}}
+    {{- $r = index (.Page.Resources.Match $glob) 0 -}}
+    {{- with .Page.CurrentSection -}}
+      {{- if not $r }}{{ $r = index (.Resources.Match $glob) 0 }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $r -}}
+    {{- $src = .RelPermalink -}}
+  {{- else -}}
+    {{- warnf "image not found: %q in %s" $dest .Page.File.Path -}}
+  {{- end -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy">
+{{- /**/ -}}

@@ -606,7 +606,7 @@ Un dépôt GIT : dossier qui contient les fichiers sources et suit les modificat
 Le "commit" : action d'enregistrement des modifications avec un message associé \
 Les branches : gestion non linéraire, permet à chacun de créer des versions.
 
-<p align="center"><img src="IMG/img_git_1.png"></p> 
+![](IMG/img_git_1.png) 
 
 <br>
 
@@ -704,9 +704,7 @@ puis on l'initialise
 git init
 ```
 
-<p align="center">
-  <img src="IMG/img_git_2.png">
-</p> 
+![](IMG/img_git_2.png) 
 
 
 on creer le fichier ``text.txt`` puis on l'index
@@ -766,7 +764,7 @@ git commit -m "change test2.txt"
 
 on peut bien voir le changement avec ``git diff``
 
-<p align="center"><img src="IMG/img_git_3.png"></p> 
+![](IMG/img_git_3.png) 
 
 pour recuperer le contenu de base de ``test2.txt`` avant le changement, on fait un ``git log`` pour recuperer le hash du commit puis un ``git restore``. TO DO - CORRECTION
 
@@ -775,7 +773,7 @@ git log
 git restore test2.tst
 ```
 
-<p align="center">  <img src="IMG/img_git_4.png"></p> 
+![](IMG/img_git_4.png) 
 
 <br>
 
@@ -814,14 +812,14 @@ Resource: https://www.atlassian.com/git/tutorials/using-branches
 
 on commence par verifier sur quel branch on est
 
-<p align="center"><img src="IMG/img_git_5.png"></p> 
+![](IMG/img_git_5.png) 
 
 on créer et switch sur la nouvelle branch dev
 ```terminal {title="bash"}
 git checkout -b “dev”
 ```
 
-<p align="center"><img src="IMG/img_git_6.png"></p> 
+![](IMG/img_git_6.png) 
 
 puis on modifie le test2.txt
 
@@ -832,7 +830,7 @@ git commit -m "change test2.txt"
 ```
 on peut bien voir que le contenu de test2.txt est different sur la branch dev est master
 
-<p align="center"><img src="IMG/img_git_7.png"></p> 
+![](IMG/img_git_7.png) 
 
 maintenant on merge ``dev`` à ``master``
 
@@ -841,11 +839,11 @@ git switch master
 git merge dev
 ```
 
-<p align="center"><img src="IMG/img_git_8.png"></p> 
+![](IMG/img_git_8.png) 
 
 verification: 
 
-<p align="center"><img src="IMG/img_git_9.png"></p> 
+![](IMG/img_git_9.png) 
 
 ---
 
@@ -976,11 +974,11 @@ ssh-keygen -t rsa -b 4096
 cat ~/.ssh/id_rsa.pub
 ```
 
-<p align="center"><img src="IMG/img_git_10.png"></p> 
+![](IMG/img_git_10.png) 
 
 puis je la copie/colle dans dans les paramettre de mon compte gogs
 
-<p align="center"><img src="IMG/img_git_11.png"></p> 
+![](IMG/img_git_11.png) 
 
 
 maintenant quand je me connect, je n'ai plus besoin de m'identifier
@@ -989,8 +987,7 @@ maintenant quand je me connect, je n'ai plus besoin de m'identifier
 git clone git@212.47.231.145:AIS/collaborate.git
 ```
 
-<p align="center"><img src="IMG/img_git_12.png">
-</p> 
+![](IMG/img_git_12.png) 
 
 
 TO DO - ADD SOME MOTRE COMMANDS OF WHAT I DID \
@@ -1092,7 +1089,7 @@ cd project
 Voilà, le server est OP \
 Bon forcement il me dit que j'ai cloner un repo vide car il est vraiment vide, pour l'instant je n'ai creer aucun dossier ou fichier.
 
-<p align="center"><img src="IMG/img_git_14.png"></p> 
+![](IMG/img_git_14.png) 
 
 <br>
 
@@ -1279,7 +1276,7 @@ lors de la toute premiere utilisation, il faut se creer un compte (on aurais pu 
 Voilà, gitea est up & running
 
 
-<p align="center"><img src="IMG/img_git_13.png"></p> 
+![](IMG/img_git_13.png) 
 
 ---
 
@@ -1364,7 +1361,7 @@ sem du 30/06/2021 au 02/07/2021
 - La virtualisation traditionnelle permet, via un hyperviseur, de simuler une ou plusieursmachines physiques, et les exécuter sous forme de machines virtuelles (VM) sur un serveurou un terminal. Ces VM intègrent elles-mêmes un OS sur lequel les applications qu'ellescontiennent sont exécutées. Ce n'est pas le cas du container. Le container fait directementappel à l'OS de sa machine hôte pour réaliser ses appels système et exécuter ses applications.
 - Les containers Docker au format Linux exploitent un composant du noyau Linux baptisé LXC(ou Linux Container).  Le moteur Docker normalise ces briques par le biais d'API dansl'optique d'exécuter les applications dans des containers standards, qui sont ensuiteportables d'un serveur à l'autre.
 
-<p align="center"><img src="IMG/img_docker_1.png"></p> 
+![](IMG/img_docker_1.png) 
 
 
 **Avantages du conteneur**
@@ -1404,9 +1401,9 @@ Le moteur Docker (Docker Engine) est éxécuté sur un serveur Linux. \
 Le client Docker, disponible sous Mac, Linux et Windows, interagit avec les moteurs grâce à l'API REST. \
 Le Docker Hub est le référentiel public d'images. C'est un "Docker Registry" qui permet de stockerles images construites à partir de fichier Dockerfile
 
-<center><img src="img_docker_2.png"></center>
+<center>![](img_docker_2.png)</center>
 
-<p align="center"><img src="IMG/img_docker_2.png"></p> 
+![](IMG/img_docker_2.png) 
 
 Cf: https://docs.docker.com/get-started/overview/
 
@@ -1452,7 +1449,7 @@ docker run hello-world
 docker run docker/whalesay cowsay "C'est trop bien Docker"
 ```
 
-<p align="center"><img src="IMG/img_docker_3.png"></p> 
+![](IMG/img_docker_3.png) 
 
 <br>
 
@@ -1529,7 +1526,7 @@ docker info                 # informations générales (!!!)
 ```
 
 
-<p align="center"><img src="IMG/img_docker_4.png"></p> 
+![](IMG/img_docker_4.png) 
 
 <br>
 
@@ -1545,7 +1542,7 @@ docker info                 # informations générales (!!!)
 docker run -it ubuntu bash 
 ```
 
-<p align="center"><img src="IMG/img_docker_5.png"></p> 
+![](IMG/img_docker_5.png) 
 
 <br>
 
@@ -1553,7 +1550,7 @@ docker run -it ubuntu bash
 
 #### **Suppression**
 
-<p align="center"><img src="IMG/img_docker_6.png"></p> 
+![](IMG/img_docker_6.png) 
 
 Supprimer un conteneur ou supprimer tous les conteneurs :
 
@@ -1739,8 +1736,7 @@ docker volume create vol_mariadb
 docker volume ls
 ```
 
-<p align="center"><img src="IMG/img_docker_7.png">
-</p> 
+![](IMG/img_docker_7.png) 
 
 
 ```terminal {title="bash"}
@@ -1752,7 +1748,7 @@ CREATE DATABASE testdbpersist;
 SHOW DATABASES;
 ```
 
-<p align="center"><img src="IMG/img_docker_8.png"></p> 
+![](IMG/img_docker_8.png) 
 
 ```terminal {title="bash"}
 docker stop testmariadb
@@ -1763,7 +1759,7 @@ mysql -u root -p
 SHOW DATABASES;
 ```
 
-<p align="center"><img src="IMG/img_docker_9.png"></p> 
+![](IMG/img_docker_9.png) 
 
 on voit bien que la DB est persistant au redemarage du conteneur
 
@@ -1783,7 +1779,7 @@ mysql -u root -p
 SHOW DATABASES;
 ```
 
-<p align="center"><img src="IMG/img_docker_10.png"></p> 
+![](IMG/img_docker_10.png) 
 
 et là on voit bien qu'ell est persistante entre differentes images
 
@@ -2132,7 +2128,7 @@ docker build -t my-httpd-test .
 docker run -dit --disable-content-trust --name apache-server -p8080:80 my-httpd-test
 ```
 
-<p align="center"><img src="IMG/img_docker_11.png"></p> 
+![](IMG/img_docker_11.png) 
 
 
 <br>
@@ -2170,14 +2166,14 @@ maintenant quand on run notre image, par defaut elle ping ``localhost``
 docker run -it exo-alpine
 ```
 
-<p align="center"><img src="IMG/img_docker_12.png"></p> 
+![](IMG/img_docker_12.png) 
  
 Si on rajoute une adresse a la fin, ça ping l'adresse en question
 ```terminal {title="bash"}
 docker run -it exo-alpine 9.9.9.9
 ```
 
-<p align="center"><img src="IMG/img_docker_13.png"></p> 
+![](IMG/img_docker_13.png) 
 
 <br>
 
@@ -2299,7 +2295,7 @@ Pour vérifier l'installation :
 docker-compose version
 ```
 
-<p align="center"><img src="IMG/img_docker_15.png"></p> 
+![](IMG/img_docker_15.png) 
 
 <br>
 
@@ -2619,7 +2615,7 @@ services:
 docker-compose up --scale python=5 -d
 ```
 
-<p align="center"><img src="IMG/img_docker_17.png"></p> 
+![](IMG/img_docker_17.png) 
 
 <br>
 
@@ -2659,7 +2655,7 @@ Les cloud providers proposent désormais des orchestrateurs "As A Service". (Sca
 
 ### **Installer Docker machine**
 
-<p align="center">  <img src="IMG/img_docker_18.png"></p> 
+![](IMG/img_docker_18.png) 
 
 Doc: https://docs.docker.com/machine/ \
 Installation par binaire : https://docs.docker.com/machine/install-machine/
@@ -2876,11 +2872,11 @@ docker stack deploy mastack --compose-file docker-compose.yml
 docker stack services mastack
 ```
 
-<p align="center">  <img src="IMG/img_docker_22.png"></p> 
+![](IMG/img_docker_22.png) 
 
 on peut voir que adminer est disponible depuis 3 ip differentes (les 3 replicas)
 
-<p align="center">  <img src="IMG/img_docker_23.png"></p> 
+![](IMG/img_docker_23.png) 
 
 
 <br>
@@ -2937,11 +2933,11 @@ creation du fichier ``docker-compose`` puis :
 ```terminal {title="bash"}
 docker stack deploy myregistry --compose-file docker-compose.yml
 ```
-<p align="center">  <img src="IMG/img_docker_25.png"></p> 
+![](IMG/img_docker_25.png) 
 
 pour l'instant c'est vide mais c'est normal
 
-<p align="center">  <img src="IMG/img_docker_26.png"></p> 
+![](IMG/img_docker_26.png) 
 
 pour pousser une image sur ce registre: \
 Je vais en premier dans le repertoire de l'image pour la build avec un tag
@@ -2954,7 +2950,7 @@ Je vais en premier dans le repertoire de l'image pour la build avec un tag
 
 **Portainer.io**
 
-<p align="center">  <img src="IMG/img_docker_19.png"></p> 
+![](IMG/img_docker_19.png) 
 
 
 https://documentation.portainer.io/
@@ -2966,13 +2962,13 @@ curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o portainer-ag
 
 docker stack deploy -c portainer-agent-stack.yml portainer
 ```
-<p align="center">  <img src="IMG/img_docker_24.png"></p>
+![](IMG/img_docker_24.png)
 
 <br>
 
 **Swarmpit**
 
-<p align="center">  <img src="IMG/img_docker_20.png"></p> 
+![](IMG/img_docker_20.png) 
 
 https://swarmpit.io/
 
@@ -3042,7 +3038,7 @@ Redémarrer ensuite le noeud et forcer la redistribution.*
 
 https://doc.traefik.io/traefik/getting-started/quick-start/
 
-<p align="center">  <img src="IMG/img_docker_21.png"></p> 
+![](IMG/img_docker_21.png) 
 
 
 ```yml
