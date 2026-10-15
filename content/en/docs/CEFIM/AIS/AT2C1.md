@@ -3190,7 +3190,6 @@ mkdir traefik && cd traefik
 
 https://doc.traefik.io/traefik/getting-started/quick-start/
 
-![Fonctionnement Traefik](./IMG/traefik-diagram.png)
 
 `docker-compose.yml` :
 
