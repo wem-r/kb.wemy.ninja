@@ -233,8 +233,6 @@ On crée ensuite dans le pfsense des groupes ayant le même nom que les groupes 
 
 On définit les droits. Ici pour le groupe pfsense-users, il n'ont le droit que de consulter le dashboard.
 
-![]()
-
 Ici on peut voir qu'on est bien connecté avec un compte AD.
 
 ![](https://lh5.googleusercontent.com/1oo9XA9yCgXkt0cGh48Pxn4F27Q5QYcaAWq3Fq2UyQl7vwHibaxrZ0-Onggzz2f3FDgwBiU_SoBng8RpLGIy4mz9UM5D3q0cdNf2wLS4GzaxTNKV6iKImu_ntWgSpMlW9Vblm6T-)
