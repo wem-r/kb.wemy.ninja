@@ -323,7 +323,7 @@ Assing a member ![](IMG/Pasted%20image%2020220114085248.png) \
 
 - https://www.b-blog.info/en/monitoring-azure-resources-with-zabbix.html
 
-a. get the whole content of this [repo (vicioussn/zabbix-azure)]([https://github.com/vicioussn/zabbix-azure/tree/master/development](https://github.com/vicioussn/zabbix-azure/tree/master/development)) in `/usr/lib/zabbix/externalscripts` \
+a. get the whole content of this [repo (vicioussn/zabbix-azure)](https://github.com/vicioussn/zabbix-azure/tree/master/development) in `/usr/lib/zabbix/externalscripts` \
 ![](IMG/Pasted%20image%2020220112144350.png) 
 
 b. create `/var/log/azure-script/` directory and assign permissions to yourself and your Zabbix server user.
