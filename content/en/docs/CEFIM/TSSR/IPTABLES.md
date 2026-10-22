@@ -1,7 +1,7 @@
 ---
 title: TSSR IPTABLES
 category : TSSR
-weight: 20
+weight: 30
 ---
 
 ![](IMG/cefim.jpg)
