@@ -28,42 +28,110 @@ $_latin-ext: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+
 }
 
 // ---------------------------------------------------------------------------
-// ```terminal blocks — window frame with three dots
+// Code blocks (```bash, ```python, ...) - a raised panel that stands out
+// from the page: own surface colour, rounded corners, soft shadow.
+// ---------------------------------------------------------------------------
+.td-content .td-code:not(.td-code--terminal) {
+  --td-pre-bg: color-mix(in srgb, var(--bs-body-bg) 94%, var(--bs-emphasis-color));
+  --td-code-header-bg: color-mix(in srgb, var(--bs-body-bg) 89%, var(--bs-emphasis-color));
+  border-radius: 8px;
+  border-color: color-mix(in srgb, var(--bs-border-color) 70%, var(--bs-emphasis-color));
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.35);
+}
+
+// ---------------------------------------------------------------------------
+// ```terminal blocks - a real terminal window, dark in both themes.
 // (markup: layouts/_markup/render-codeblock-terminal.html)
 // ---------------------------------------------------------------------------
-@mixin wem-window-dots {
-  content: '';
-  flex: 0 0 auto;
-  width: 3.2rem;
-  height: 0.75rem;
+$term-bg:       #0c0f12;
+$term-bar-top:  #2b3038;
+$term-bar-bot:  #1d2127;
+$term-fg:       #d5dde6;
+$term-dim:      #8b96a3;
+$term-prompt:   #5af78e;
+$term-string:   #f3f99d;
+$term-var:      #57c7ff;
+$term-keyword:  #ff6ac1;
+$term-comment:  #6b7785;
+
+// Three window buttons with a thin darker ring, like macOS.
+@mixin wem-window-dots($x0) {
   background:
-    radial-gradient(circle at 0.375rem 50%, #ff5f57 0.3rem, transparent 0.32rem),
-    radial-gradient(circle at 1.6rem 50%, #febc2e 0.3rem, transparent 0.32rem),
-    radial-gradient(circle at 2.825rem 50%, #28c840 0.3rem, transparent 0.32rem);
+    radial-gradient(circle at #{$x0} 50%,           #ff5f57 0.3rem, #e0443e 0.33rem, transparent 0.36rem),
+    radial-gradient(circle at calc(#{$x0} + 1.25rem) 50%, #febc2e 0.3rem, #dea123 0.33rem, transparent 0.36rem),
+    radial-gradient(circle at calc(#{$x0} + 2.5rem) 50%,  #28c840 0.3rem, #1aab29 0.33rem, transparent 0.36rem);
 }
 
 .td-content .td-code--terminal {
-  // Titled block: dots at the start of OINK's title bar, title centred.
+  --td-pre-bg: #{$term-bg};
+  --td-code-border-color: rgba(255, 255, 255, 0.08);
+  --bs-tertiary-color: #{$term-dim};       // copy button
+  margin-block: 2rem;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background: $term-bg;
+  color: $term-fg;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 18px 40px -12px rgba(0, 0, 0, 0.7),
+    0 4px 10px -4px rgba(0, 0, 0, 0.5);
+
+  // Title bar (titled block): dots on the left, title centred.
   > .td-code__header {
-    &::before { @include wem-window-dots; }
+    min-height: 2.25rem;
+    border-bottom: 1px solid #000;
+    background: linear-gradient(to bottom, $term-bar-top, $term-bar-bot);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+
+    &::before {
+      content: '';
+      flex: 0 0 auto;
+      width: 3.4rem;
+      height: 0.8rem;
+      margin-left: -0.25rem;
+      @include wem-window-dots(0.4rem);
+    }
     .td-code__filename {
       flex: 1 1 auto;
       text-align: center;
-      padding-right: 3.2rem;   // balance the dots so the title is truly centred
+      padding-right: 3.15rem;              // balance the dots
+      color: #b9c2cc;
+      font-size: 0.75rem;
     }
   }
 
-  // Untitled block: add the same bar, with dots only.
+  // Untitled block: the same bar, with a default title.
   &.td-code--untitled::before {
+    content: 'terminal';
     display: block;
-    height: 2.5rem;
-    border-bottom: 1px solid var(--td-code-border-color);
-    content: '';
-    background:
-      radial-gradient(circle at 1.375rem 50%, #ff5f57 0.3rem, transparent 0.32rem),
-      radial-gradient(circle at 2.6rem 50%, #febc2e 0.3rem, transparent 0.32rem),
-      radial-gradient(circle at 3.825rem 50%, #28c840 0.3rem, transparent 0.32rem),
-      var(--td-code-header-bg);
+    height: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
+    color: #b9c2cc;
+    font-family: var(--td-ui-font-family);
+    font-size: 0.75rem;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+    background-color: $term-bar-bot;
+    background-image:
+      radial-gradient(circle at 1.15rem 50%, #ff5f57 0.3rem, #e0443e 0.33rem, transparent 0.36rem),
+      radial-gradient(circle at 2.4rem 50%,  #febc2e 0.3rem, #dea123 0.33rem, transparent 0.36rem),
+      radial-gradient(circle at 3.65rem 50%, #28c840 0.3rem, #1aab29 0.33rem, transparent 0.36rem),
+      linear-gradient(to bottom, $term-bar-top, $term-bar-bot);
+  }
+
+  pre { padding: 1rem 1.25rem 1.1rem; }
+
+  // Terminal colours (fixed, same in light and dark mode)
+  .chroma {
+    color: $term-fg;
+    .gp  { color: $term-prompt; font-weight: 700; }   // prompt
+    .go  { color: $term-dim; }                        // output
+    .nb, .nf, .k, .kn, .kd { color: $term-keyword; }  // builtins, keywords
+    .nv, .nt, .na, .vg     { color: $term-var; }      // $vars, options
+    .s, .s1, .s2, .se, .sb, .sh, .si, .sx { color: $term-string; }
+    .c, .c1, .ch, .cm      { color: $term-comment; font-style: italic; }
+    .o, .p, .m, .mi, .n, .w, .err { color: $term-fg; background: none; }
   }
 }
 
