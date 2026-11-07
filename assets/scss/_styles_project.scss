@@ -151,3 +151,60 @@ $term-comment:  #6b7785;
   i { margin-right: 0.4em; }
   &:hover { text-decoration: underline; }
 }
+
+// ---------------------------------------------------------------------------
+// Dark mode: cyberpunk palette (light mode keeps OINK's Terminal colours).
+//   cyan  #5ce1e6  links, headings, borders, code-block glow
+//   pink  #ff3e7f  link hover, selected sidebar item
+//   yellow #f3e600 inline code, buttons, accents, quote bar
+// ---------------------------------------------------------------------------
+html[data-td-preset='terminal'][data-bs-theme='dark'] {
+  --bs-body-bg: #0a0a0d;            --bs-body-bg-rgb: 10, 10, 13;
+  --bs-body-color: #e2e2ea;         --bs-body-color-rgb: 226, 226, 234;
+  --bs-emphasis-color: #ffffff;     --bs-emphasis-color-rgb: 255, 255, 255;
+  --bs-secondary-color: #9a9aab;    --bs-tertiary-color: #8a8a9c;
+  --bs-secondary-bg: #121217;       --bs-secondary-bg-rgb: 18, 18, 23;
+  --bs-tertiary-bg: #1c1c23;        --bs-tertiary-bg-rgb: 28, 28, 35;
+  --bs-link-color: #5ce1e6;         --bs-link-color-rgb: 92, 225, 230;
+  --bs-link-hover-color: #ff3e7f;   --bs-link-hover-color-rgb: 255, 62, 127;
+  --bs-border-color: rgba(255, 62, 127, 0.3);
+  --bs-border-color-translucent: rgba(255, 62, 127, 0.3);
+  --bs-code-color: #f3e600;         --td-code-inline-bg: rgba(243, 230, 0, 0.07);
+  --td-code-header-bg: #15151b;     --td-pre-bg: #0f0f13;
+  --td-brand-elev: #121217;         --td-brand-silk: #9a9aab;
+  --td-brand-copper: #f3e600;       --td-brand-copper-dim: rgba(243, 230, 0, 0.5);
+  --td-brand-line-strong: rgba(92, 225, 230, 0.6);
+  --td-brand-header-bg: rgba(10, 10, 13, 0.96);
+  --td-brand-mark-from: #5ce1e6;    --td-brand-mark-to: #ff3e7f;
+  --td-shell-accent: rgba(255, 62, 127, 0.1);
+  --td-shell-rail: rgba(255, 62, 127, 0.3);
+  --td-shell-primary-wash: rgba(255, 62, 127, 0.1);
+  --td-hairline: rgba(255, 62, 127, 0.3);
+  --td-on-link: #0a0a0d;
+  --td-preset-accent: #f3e600;      --td-preset-accent-rgb: 243, 230, 0;
+  --td-preset-accent-hover: #fff35c;
+
+  body { background: #0a0a0d; }
+
+  .td-content {
+    :is(h1, h2, h3) { color: #5ce1e6; text-shadow: 0 0 10px rgba(92, 225, 230, 0.35); }
+    hr { border: 0; height: 1px; opacity: 1; background: linear-gradient(90deg, #5ce1e6, #ff3e7f); }
+    a:hover { text-shadow: 0 0 8px rgba(255, 62, 127, 0.6); }
+    blockquote { border-left-color: #f3e600; }
+    .td-code:not(.td-code--terminal) {
+      border-color: rgba(92, 225, 230, 0.35);
+      box-shadow: 0 0 0 1px rgba(92, 225, 230, 0.08), 0 0 18px -6px rgba(92, 225, 230, 0.35);
+    }
+    .td-code--terminal {
+      box-shadow: 0 0 0 1px rgba(92, 225, 230, 0.3), 0 0 24px -6px rgba(92, 225, 230, 0.4),
+        0 18px 40px -12px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .td-shell-tree .td-shell-tree__row.td-shell-active {
+    --td-shell-row-selected-fg: #0a0a0d;
+    background: #ff3e7f;
+    color: #0a0a0d;
+    box-shadow: 0 0 14px -2px rgba(255, 62, 127, 0.6);
+  }
+}

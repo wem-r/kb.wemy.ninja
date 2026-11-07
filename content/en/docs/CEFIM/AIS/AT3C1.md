@@ -1,6 +1,8 @@
 ---
 title: "AT3C1"
 description: 
+categories:
+  - AIS
 ---
 
 # Superviser, mesurer les performances et la disponibilité de l’infrastructure

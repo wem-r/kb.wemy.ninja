@@ -1,6 +1,8 @@
 ---
 title: "AT2C1"
 description: 
+categories:
+  - AIS
 ---
 
 # Créer des scripts d’automatisation
