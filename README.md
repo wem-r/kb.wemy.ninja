@@ -1,35 +1,39 @@
 # kb.wemy.ninja
 
-Personal knowledge base — [Hugo](https://gohugo.io/) + [Docsy](https://www.docsy.dev/),
-deployed to GitHub Pages at <https://kb.wemy.ninja/>.
+Personal knowledge base — [Hugo](https://gohugo.io/) + [OINK](https://github.com/pgsty/oink)
+(Terminal preset), deployed to GitHub Pages at <https://kb.wemy.ninja/>.
 
 ## Requirements
 
-Node 24 LTS (npm 11). Everything else — Docsy, Hugo extended, Dart Sass — is
-pinned in `package.json` / `package-lock.json`. No Go, no global Hugo install.
+Node 24 LTS (npm 11) — only to install the pinned Hugo extended binary.
+The theme is a git submodule in `themes/oink`; it bundles all its assets
+(no Sass, Bootstrap or npm packages of its own).
 
 ## Commands
 
 ```sh
-npm ci              # install pinned toolchain
+git clone --recurse-submodules https://github.com/wem-r/kb.wemy.ninja.git
+npm ci              # installs the pinned Hugo, inits the theme submodule
 npm run serve       # http://localhost:1313, drafts included
 npm run build       # production build into public/
-npm run clean       # remove build output and caches
 ```
 
 ## Layout
 
 | Path | What |
 |---|---|
-| `hugo.toml` | Site config and Docsy params |
-| `content/en/docs/` | Docs section (`_index.md` + `weight` for ordering) |
-| `content/en/blog/` | Blog posts, grouped by year |
-| `assets/scss/_variables_project.scss` | Brand variables (before Bootstrap) |
-| `assets/scss/_styles_project.scss` | Style overrides (after Docsy) |
-| `layouts/` | Template overrides — never edit `node_modules/@docsy/theme` |
-| `static/` | Copied as-is (`CNAME`, favicons, images) |
+| `hugo.toml` | Site config and OINK params (`params.ui.preset = "terminal"`) |
+| `data/home/en.yaml` | Home page (OINK landing: hero + cards) |
+| `content/en/docs/` | Knowledge Base (`_index.md` + `weight` for ordering) |
+| `content/en/cheatsheets/` | Cheatsheets (own sidebar: `sidebar_root_for: self`) |
+| `content/en/blog/` | Blog posts |
+| `assets/scss/_styles_project.scss` | Site styles (terminal window frame) |
+| `layouts/` | Site overrides of the theme — re-check them on every OINK upgrade |
+| `scripts/` | One-off content helpers (image conversion/extraction) |
+| `static/` | Copied as-is (`CNAME`) |
 
-## Updating Docsy / Hugo
+## Updating OINK / Hugo
 
-Bump the three packages together (Dependabot groups them), read the Docsy
-release report at <https://www.docsy.dev/blog/>, then `npm ci && npm run build`.
+Read the OINK changelog, move the submodule to the new tag, bump
+`hugo-extended` if the release needs a newer Hugo, then `npm ci && npm run build`
+and check the overrides listed in `layouts/`.

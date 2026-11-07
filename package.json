@@ -5,11 +5,10 @@
     "serve": "hugo server --buildDrafts --disableFastRender",
     "build": "hugo --gc --minify",
     "clean": "rm -rf public resources/_gen .hugo_build.lock",
-    "prepare": "git submodule update --init && npm --prefix themes/docsy run install:theme-deps"
+    "prepare": "git submodule update --init"
   },
   "devDependencies": {
-    "hugo-extended": "0.164.0",
-    "sass-embedded": "1.102.0"
+    "hugo-extended": "0.168.0"
   },
   "engines": {
     "node": ">=24",
@@ -17,6 +16,6 @@
   },
   "private": true,
   "allowScripts": {
-    "hugo-extended@0.164.0": true
+    "hugo-extended@0.168.0": true
   }
 }
