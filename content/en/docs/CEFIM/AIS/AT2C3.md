@@ -1,6 +1,8 @@
 ---
 title: "AT2C3"
 description: 
+categories:
+  - AIS
 ---
 
 # Administrer les services dans une infrastructure distribuée

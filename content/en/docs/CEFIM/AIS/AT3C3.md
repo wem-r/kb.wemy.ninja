@@ -1,7 +1,6 @@
 ---
 title: "AT3C3"
 description:
-date: 2021-05-01 19:16:22 
 categories:
   - AIS
 ---

@@ -1,6 +1,8 @@
 ---
 title: "AT1C2"
 description: 
+categories:
+  - AIS
 ---
 
 # Administrer et sécuriser un environnement système hétérogène

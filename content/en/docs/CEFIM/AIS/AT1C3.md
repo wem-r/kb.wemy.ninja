@@ -1,6 +1,8 @@
 ---
 title: "AT1C3"
 description: 
+categories:
+  - AIS
 ---
 
 # Administrer et sécuriser une infrastructure de serveurs virtualisée
