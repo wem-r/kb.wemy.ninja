@@ -3,10 +3,8 @@ title = "Wem"
 enableRobotsTXT = true
 enableGitInfo = true          # "Last modified" from git history (CI fetches full history)
 
-# Docsy installed from npm (@docsy/theme)
-# theme = "@docsy/theme"
-# themesDir = "node_modules"
-theme = "docsy/theme"
+# OINK theme (https://github.com/pgsty/oink), git submodule in themes/oink
+theme = "oink"
 
 # Content lives under content/en/ so a second language is a config change, not a migration.
 defaultContentLanguage = "en"
@@ -14,7 +12,7 @@ defaultContentLanguageInSubdir = false
 
 [module.hugoVersion]
   extended = true
-  min = "0.160.1"
+  min = "0.168.0"
 
 [languages.en]
   label = "English"
@@ -33,33 +31,31 @@ defaultContentLanguageInSubdir = false
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true           # allow raw HTML from converted notes
+      unsafe = true           # allow raw HTML from converted notes (tables, iframes)
     [markup.goldmark.parser.attribute]
       block = true
-  [markup.highlight]
-    noClasses = false         # Chroma via CSS classes (light/dark aware)
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4
+  [markup.goldmark.renderHooks.link]
+    useEmbedded = "fallback"  # resolve [text](Page.md) links to page URLs
 
 [params]
   copyright = { authors = "wem", from_year = 2026 }
   github_repo = "https://github.com/wem-r/kb.wemy.ninja"
   github_branch = "main"
-  github_project_repo = "https://github.com/wem-r/kb.wemy.ninja"
-  offlineSearch = true        # Lunr search, no external service
-  prism_syntax_highlighting = false
+  offline_search = true       # local Lunr search, no external service
 
   [params.ui]
-    showLightDarkModeMenu = false
+    preset = "terminal"       # paper | slate | ink | terminal
+    preset_menu = false       # no reader-facing style switcher
+    dark_mode = { enable = true, show_menu = true }   # Light / Dark / System menu
+    lastmod_commit = "none"   # "Last modified <date>" without the commit message
+    reading_time = false
+    code_copy = true
     sidebar_menu_compact = true
     sidebar_menu_foldable = true
-    sidebar_search_disable = false
-    breadcrumb_disable = false
-    navbar_logo = true
     [params.ui.feedback]
-      enable = false
-    [params.ui.readingtime]
       enable = false
 
   [params.links]
@@ -70,18 +66,14 @@ defaultContentLanguageInSubdir = false
       desc = "GitHub"
     [[params.links.user]]
       name = "wemy.ninja"
-      url = "https://kb.wemy.ninja/"
+      url = "https://wemy.ninja/"
       icon = "fa-solid fa-house"
       desc = "Main site"
 
 # Navbar entries for sites outside this repo (internal sections add
 # themselves via `menu:` in their _index.md front matter).
-
 [menus]
   [[menus.main]]
     name = "Tools"
     url = "https://tools.wemy.ninja/"
     weight = 40
-    
-[markup.goldmark.renderHooks.link]
-  useEmbedded = "fallback"   # resolve [text](Page.md) links to page URLs

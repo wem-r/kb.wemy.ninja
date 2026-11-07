@@ -1,4 +1,3 @@
-[submodule "themes/docs"]
-	path = themes/docsy
-	url = https://github.com/wem-r/docsy.git
-	branch = wem
+[submodule "themes/oink"]
+	path = themes/oink
+	url = https://github.com/pgsty/oink.git

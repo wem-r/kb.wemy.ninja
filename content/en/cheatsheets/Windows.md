@@ -20,9 +20,8 @@ tags: [windows]
  
 GPO equivalent: *Computer Configuration → Administrative Templates → Windows Components → Cloud Content → Turn off Microsoft consumer experiences* → **Enabled**
  
-{{< alert title="Edition limit" color="warning" >}}
-Officially honored only on **Enterprise / Education** (and Pro for Workstations / IoT). On **Home and Pro** it is largely ignored — use section 2 as well.
-{{< /alert >}}
+> [!WARNING] Edition limit
+> Officially honored only on **Enterprise / Education** (and Pro for Workstations / IoT). On **Home and Pro** it is largely ignored — use section 2 as well.
  
 **Optional companions (same key)**
  
@@ -48,9 +47,8 @@ All `REG_DWORD`, data `0`:
 | `SystemPaneSuggestionsEnabled` | No Start menu suggestions |
 | `SoftLandingEnabled` | No tips/suggestions popups |
  
-{{< alert title="New users" color="info" >}}
-For new users, load the default profile hive (`C:\Users\Default\NTUSER.DAT`) and set the same values.
-{{< /alert >}}
+> [!NOTE] New users
+> For new users, load the default profile hive (`C:\Users\Default\NTUSER.DAT`) and set the same values.
  
 ### 3. One-shot commands (admin CMD)
  
@@ -111,9 +109,8 @@ Windows Registry Editor Version 5.00
 
 GPO equivalent: *Computer Configuration → Administrative Templates → Windows Components → Data Collection and Preview Builds → Allow Diagnostic Data* (Win10: *Allow Telemetry*) → **Enabled**, *Diagnostic data off*
 
-{{< alert title="Edition limit" color="warning" >}}
-`0` (Security / off) is honored only on **Enterprise / Education / Server**. On **Home and Pro** it is treated as `1` (Required). To cut more on those editions, also disable the service and tasks in sections 3 and 4.
-{{< /alert >}}
+> [!WARNING] Edition limit
+> `0` (Security / off) is honored only on **Enterprise / Education / Server**. On **Home and Pro** it is treated as `1` (Required). To cut more on those editions, also disable the service and tasks in sections 3 and 4.
 
 **Optional companions (same key)**
 
@@ -215,9 +212,8 @@ Key first, then the host, then activate. `/skms` is optional if the KMS host is 
 
 Other editions (LTSC, Server…): [KMS client activation keys — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys?tabs=windows1110ltsc%2Cwindows81%2Cserver2025%2Cversion1803)
 
-{{< alert title="Requirement" color="info" >}}
-A GVLK only activates against a licensed KMS host on your network. These keys are public on their own; they don't activate anything without one.
-{{< /alert >}}
+> [!NOTE] Requirement
+> A GVLK only activates against a licensed KMS host on your network. These keys are public on their own; they don't activate anything without one.
 
 ### 3. Useful extras
 

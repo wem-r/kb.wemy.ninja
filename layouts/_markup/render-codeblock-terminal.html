@@ -1,32 +1,55 @@
 {{- /*
-`````terminal                       → terminal window, no title
-````terminal {title="debian — ssh"}  → title in the window bar
+  ```terminal fences — a shell session in a window frame.
 
-  Lines that start with a shell prompt get the prompt in mint and the command
-  syntax-highlighted as bash; every other line is shown as plain output.
-  Recognised prompts:  user@host$  user@host:~/dir#  [user@host dir]$  $  #
-                       PS C:\path>  C:\path>  ❯
+    ```terminal
+    ```terminal {title="debian — ssh"}
+
+  Rendered through OINK's own code pipeline (title bar, copy button, theme
+  colours), with two additions:
+    - prompts are recognised in their full form, which Chroma's `console`
+      lexer does not do:  user@host:~/dir$  root@host:/#  [user@host dir]$
+      $  #  %  ❯  PS C:\path>  C:\path>
+      The prompt is marked as a Chroma prompt token (.gp), the command is
+      highlighted as bash, every other line is output (.go). OINK's copy button
+      therefore copies ONLY the commands, without prompts or output.
+    - a `td-code--terminal` class for the window frame
+      (assets/scss/_styles_project.scss).
+  With lineNos / hl_lines options, OINK's plain `console` highlighting is used.
 */ -}}
-{{- $promptRE := `^((?:\[[^\]]+\]|[\w.-]+@[\w.-]+(?::[^\s$#%]*)?)\s?[$#%]|[$#%❯]|PS [^>]*>|[A-Za-z]:\\[^>]*>)( +)(.*)$` -}}
-{{- $title := .Attributes.title | default "" -}}
-<div class="td-terminal">
-  <div class="td-terminal__bar" aria-hidden="true">
-    <span class="td-terminal__dot td-terminal__dot--close"></span>
-    <span class="td-terminal__dot td-terminal__dot--min"></span>
-    <span class="td-terminal__dot td-terminal__dot--max"></span>
-    {{- with $title }}<span class="td-terminal__title">{{ . }}</span>{{ end }}
-  </div>
-  <pre class="td-terminal__body"><code>
-    {{- range $i, $line := split (strings.TrimRight "\n" .Inner) "\n" -}}
-      {{- if $i }}{{ "\n" }}{{ end -}}
-      {{- $m := findRESubmatch $promptRE $line 1 -}}
-      {{- if $m -}}
-        {{- $parts := index $m 0 -}}
-        <span class="td-terminal__prompt">{{ index $parts 1 }}</span>{{ index $parts 2 -}}
-        <span class="td-terminal__cmd">{{ with index $parts 3 }}{{ transform.Highlight . "bash" "hl_inline=true" }}{{ end }}</span>
-      {{- else -}}
-        <span class="td-terminal__out">{{ $line }}</span>
+{{- $attrs := .Attributes | default dict -}}
+{{- $class := trim (printf "td-code--terminal %v" (index $attrs "class" | default "")) " " -}}
+{{- $attrs = merge $attrs (dict "class" $class) -}}
+{{- $config := partial "code/normalize.html" (dict
+  "page" .Page
+  "position" .Position
+  "code" .Inner
+  "language" "console"
+  "attributes" $attrs
+  "options" .Options
+  "key" (printf "fence-%d" .Ordinal)
+) -}}
+{{- $highlighted := "" -}}
+{{- if .Options -}}
+  {{- $highlighted = partial "code/highlight.html" $config -}}
+{{- else -}}
+  {{- $promptRE := `^((?:\[[^\]]+\]|[\w.-]+@[\w.-]+(?::[^\s$#%]*)?)\s?[$#%]|[$#%❯]|PS [^>]*>|[A-Za-z]:\\[^>]*>)( +)(.*)$` -}}
+  {{- $out := slice -}}
+  {{- range split (strings.TrimRight "\n" .Inner) "\n" -}}
+    {{- $m := findRESubmatch $promptRE . 1 -}}
+    {{- if $m -}}
+      {{- $p := index $m 0 -}}
+      {{- $cmd := "" -}}
+      {{- with index $p 3 -}}
+        {{- $cmd = transform.Highlight . "bash" "hl_inline=true,noClasses=false" | string -}}
+        {{- $cmd = replaceRE `^<code[^>]*>|</code>$` "" $cmd -}}
       {{- end -}}
+      {{- $out = $out | append (printf `<span class="line"><span class="cl"><span class="gp">%s</span>%s%s
+</span></span>` (htmlEscape (index $p 1)) (index $p 2) $cmd) -}}
+    {{- else -}}
+      {{- $out = $out | append (printf `<span class="line"><span class="cl"><span class="go">%s
+</span></span></span>` (htmlEscape .)) -}}
     {{- end -}}
-  </code></pre>
-</div>
+  {{- end -}}
+  {{- $highlighted = printf `<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console">%s</code></pre></div>` (delimit $out "") | safeHTML -}}
+{{- end -}}
+{{- partial "code/render.html" (dict "config" $config "highlighted" $highlighted) -}}

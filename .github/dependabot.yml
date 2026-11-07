@@ -1,11 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: npm          # Docsy, Hugo, Sass
-    directory: /
-    schedule: { interval: monthly }
-    groups:
-      site-toolchain:
-        patterns: ["hugo-extended", "sass-embedded"]
+  # Hugo is pinned to what the OINK release needs; bump it together with the
+  # theme (see the setup report), not on its own.
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly }
