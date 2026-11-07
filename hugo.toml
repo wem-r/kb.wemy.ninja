@@ -44,6 +44,7 @@ defaultContentLanguageInSubdir = false
   copyright = { authors = "wem", from_year = 2026 }
   github_repo = "https://github.com/wem-r/kb.wemy.ninja"
   github_branch = "main"
+  footer_center_info = ""     # no "Powered by Oink" in the footer
   offline_search = true       # local Lunr search, no external service
 
   [params.ui]
@@ -53,8 +54,18 @@ defaultContentLanguageInSubdir = false
     lastmod_commit = "none"   # "Last modified <date>" without the commit message
     reading_time = false
     code_copy = true
+    page_context_menu = false # no "Actions" button above the page title
     sidebar_menu_compact = true
     sidebar_menu_foldable = true
+    # Roboto Mono everywhere (files + @font-face: assets/scss/_styles_project.scss)
+    [params.ui.fonts]
+      ui      = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      body    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      heading = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      code    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      display = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      meta    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
+      brand   = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
     [params.ui.feedback]
       enable = false
 
