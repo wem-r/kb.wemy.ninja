@@ -66,3 +66,13 @@ $_latin-ext: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+
       var(--td-code-header-bg);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Images in notes: always centred on their own line.
+// ---------------------------------------------------------------------------
+.td-content img {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+}
