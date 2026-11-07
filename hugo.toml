@@ -50,6 +50,7 @@ defaultContentLanguageInSubdir = false
   [params.ui]
     preset = "terminal"       # paper | slate | ink | terminal
     preset_menu = false       # no reader-facing style switcher
+    pager_types = []          # no "← previous / next →" links at the bottom of pages
     dark_mode = { enable = true, show_menu = true }   # Light / Dark / System menu
     lastmod_commit = "none"   # "Last modified <date>" without the commit message
     reading_time = false

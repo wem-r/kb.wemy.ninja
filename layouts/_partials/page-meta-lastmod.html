@@ -1,0 +1,22 @@
+{{- /* SITE OVERRIDE of OINK v1.5.1 layouts/_partials/page-meta-lastmod.html
+     (OINK's documented override point for the page-end annotation).
+     [wem] adds "· Source" after "Last modified <date>", linking to the page's
+     Markdown file on GitHub (params.github_repo + github_branch).
+     Re-sync with the theme's version on every OINK upgrade. */ -}}
+{{- $items := partial "annotation-items.html" . -}}
+{{- $source := "" -}}
+{{- with (partial "actions/page-urls.html" .).repoPath -}}
+  {{- $source = printf "%s/blob/%s" site.Params.github_repo . -}}
+{{- end -}}
+{{- with $items }}
+<div class="td-page-meta__footer">
+  {{- range . }}
+  <div class="td-page-meta__item td-page-meta__{{ .key }}">
+    <span class="td-page-meta__icon"><i class="{{ .icon }}" aria-hidden="true"></i></span>
+    <span>{{ .html | safeHTML }}
+      {{- if and (eq .key "lastmod") $source }} &middot; <a class="wem-source-link" href="{{ $source }}" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>Source</a>{{ end -}}
+    </span>
+  </div>
+  {{- end }}
+</div>
+{{ end -}}

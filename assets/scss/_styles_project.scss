@@ -144,3 +144,10 @@ $term-comment:  #6b7785;
   max-width: 100%;
   height: auto;
 }
+
+// "· Source" link after "Last modified" (layouts/_partials/page-meta-lastmod.html)
+.wem-source-link {
+  text-decoration: none;
+  i { margin-right: 0.4em; }
+  &:hover { text-decoration: underline; }
+}
