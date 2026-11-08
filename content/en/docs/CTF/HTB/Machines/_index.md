@@ -1,4 +1,5 @@
 ---
-title: Hack The Box Machines
+title: Machines
 weight: 10
 ---
+
