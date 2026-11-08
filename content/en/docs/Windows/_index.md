@@ -1,4 +1,4 @@
 ---
-title: Linux
+title: Windows
 weight: 40
 ---
