@@ -1,4 +1,4 @@
 ---
-title: Hack The Box
+title: Hard
 weight: 10
 ---

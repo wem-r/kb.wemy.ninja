@@ -1,4 +1,4 @@
 ---
-title: Hack The Box Challenges
+title: Challenges
 weight: 10
 ---

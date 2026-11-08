@@ -1,4 +1,4 @@
 ---
-title: Hack The Box
+title: Medium
 weight: 10
 ---
