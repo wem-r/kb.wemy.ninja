@@ -1,4 +1,4 @@
 ---
-title: Hack The Box Academy
+title: Academy
 weight: 10
 ---
