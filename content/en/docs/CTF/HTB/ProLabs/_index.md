@@ -1,4 +1,4 @@
 ---
 title: Pro Labs
-weight: 10
+weight: 30
 ---
