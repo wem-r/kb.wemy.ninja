@@ -1,4 +1,4 @@
 ---
-title: Hack The Box Pro Labs
+title: Pro Labs
 weight: 10
 ---
