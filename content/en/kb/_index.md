@@ -4,6 +4,8 @@ linkTitle: Knowledge Base
 weight: 20
 menu: { main: { weight: 20 } }
 no_list: true
+cascade:
+  type: docs  
 ---
 
 | Section | What's inside |
