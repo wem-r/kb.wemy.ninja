@@ -1,4 +1,4 @@
 ---
 title: _Learning
-weight: 10
+weight: 1
 ---
