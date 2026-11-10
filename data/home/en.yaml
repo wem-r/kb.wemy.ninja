@@ -10,7 +10,7 @@ hero:
         - { text: "wem@kb:~$" }
   lead: Notes, how-tos, cheatsheets and write-ups.
   actions:
-    - { label: Knowledge Base, url: docs/, icon: fa-solid fa-book, style: primary }
+    - { label: Knowledge Base, url: kb/, icon: fa-solid fa-book, style: primary }
     - { label: Cheatsheets, url: cheatsheets/, icon: fa-solid fa-terminal, style: ghost }
 
 cards:
@@ -19,7 +19,7 @@ cards:
     - title: Knowledge Base
       desc: Structured reference notes — CEFIM (AIS, TSSR, TAI), CTF.
       icon: fa-solid fa-book
-      url: docs/
+      url: kb/
     - title: Cheatsheets
       desc: Quick-reference commands and syntax.
       icon: fa-solid fa-terminal
