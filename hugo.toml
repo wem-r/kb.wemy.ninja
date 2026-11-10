@@ -55,6 +55,7 @@ defaultContentLanguageInSubdir = false
     lastmod_commit = "none"   # "Last modified <date>" without the commit message
     reading_time = false
     code_copy = true
+    docs_section = "kb"
     page_context_menu = false # no "Actions" button above the page title
     sidebar_menu_compact = true
     sidebar_menu_foldable = true
