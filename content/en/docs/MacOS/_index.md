@@ -1,4 +1,4 @@
 ---
 title: MacOS
-weight: 50
+weight: 7
 ---
