@@ -1,4 +1,4 @@
 ---
 title: Raspberry Pi
-weight: 50
+weight: 70
 ---
