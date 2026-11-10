@@ -1,4 +1,4 @@
 ---
-title: CTF
+title: _CTF
 weight: 2
 ---
