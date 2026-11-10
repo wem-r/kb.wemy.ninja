@@ -1,6 +1,6 @@
 ---
 title: Git
-description: Everyday Git commands.
+description:
 weight: 20
 tags: [git]
 ---
