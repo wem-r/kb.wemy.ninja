@@ -208,3 +208,11 @@ html[data-td-preset='terminal'][data-bs-theme='dark'] {
     box-shadow: 0 0 14px -2px rgba(255, 62, 127, 0.6);
   }
 }
+
+// 404 page (layouts/404.html)
+.wem-404 {
+  max-width: 52rem;
+  margin: 3rem auto;
+  .wem-cursor { animation: wem-blink 1s steps(1) infinite; color: #5af78e; }
+}
+@keyframes wem-blink { 50% { opacity: 0; } }

@@ -1,0 +1,50 @@
+{{- /* SITE OVERRIDE of OINK v1.5.1 layouts/404.html - custom 404 page.
+     Keep the <html>/<head>/navbar/footer part in sync with the theme's version
+     on OINK upgrades; edit freely inside <div class="td-content">. */ -}}
+{{- .Page.Store.Set "tdOutputFormat" "html" -}}
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage"
+    dir="{{ .Site.Language.Direction | default "ltr" }}"
+    lang="{{ partial "language-tag.html" . }}"
+    data-td-typography="{{ partial "typography-preset.html" .Site }}"
+    {{- $preset := partialCached "preset-config.html" "preset-global" }}
+    data-td-preset="{{ $preset.preset }}" data-td-site-preset="{{ $preset.preset }}"
+    {{- $darkMode := partialCached "dark-mode-config.html" "dark-mode-global" -}}
+    {{- if $darkMode.enable }} data-td-theme-init{{ end }}>
+  <head>{{ partial "head.html" . }}</head>
+  <body class="td-404">
+    {{ partial "skip-link.html" . }}
+    {{ if partial "shell/navbar-enabled.html" . }}{{ partial "navbar.html" . }}{{ end }}
+    <div class="container-fluid td-default td-outer">
+      <main id="td-main-content" class="td-main" tabindex="-1">
+        <div class="td-content wem-404">
+
+          <h1>404 - page not found</h1>
+
+          <div class="td-code td-code--terminal">
+            <div class="td-code__header"><span class="td-code__filename">wem@kb: ~</span></div>
+            <div class="highlight"><pre class="chroma"><code><span class="gp">wem@kb:~$</span> cd <span id="wem-404-path">/this/page</span>
+<span class="go">bash: cd: <span id="wem-404-path2">/this/page</span>: No such file or directory</span>
+<span class="gp">wem@kb:~$</span> <span class="wem-cursor">█</span></code></pre></div>
+          </div>
+
+          <p>The page doesn't exist, or it moved. Try the search bar at the top, or:</p>
+          <ul>
+            <li><a href="{{ "kb/" | relURL }}">Knowledge Base</a></li>
+            <li><a href="{{ "cheatsheets/" | relURL }}">Cheatsheets</a></li>
+            <li><a href="{{ .Site.Home.RelPermalink }}">Home</a></li>
+          </ul>
+
+        </div>
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+    <script>
+      // show the address the visitor actually asked for
+      var p = decodeURIComponent(location.pathname);
+      document.getElementById('wem-404-path').textContent = p;
+      document.getElementById('wem-404-path2').textContent = p;
+    </script>
+  </body>
+</html>
