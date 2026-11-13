@@ -12,7 +12,7 @@
 <div class="wm-desk" id="wm-desk">
 
   <section class="wm-t wm-t-tree" data-tab="tree" aria-label="File tree">
-    <div class="wm-th"><span>[1] tree ~{{ strings.TrimSuffix "/" $root.RelPermalink }}</span><span>{{ len $root.Sections }} {{ cond (eq (len $root.Sections) 1) "section" "sections" }}</span></div>
+    <div class="wm-th"><span>[1] tree ~{{ with $root.File }}/{{ path.Base .Dir }}{{ else }}{{ strings.TrimSuffix "/" $root.RelPermalink }}{{ end }}</span><span>{{ len $root.Sections }} {{ cond (eq (len $root.Sections) 1) "section" "sections" }}</span></div>
     <div class="wm-tb">{{ partialCached "tree.html" $root $root.RelPermalink }}</div>
     <div class="wm-foot"><span>click ⊞ to fold</span><span>j/k scroll</span></div>
   </section>
