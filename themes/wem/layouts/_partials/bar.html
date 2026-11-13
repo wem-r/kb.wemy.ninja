@@ -3,6 +3,7 @@
 {{- if not .IsHome }}{{ with .FirstSection }}{{ $cur = .Section }}{{ end }}{{ end }}
 <header class="wm-bar" role="banner">
   <nav class="wm-ws" aria-label="Workspaces">
+    <a href="{{ site.Home.RelPermalink }}" class="{{ if .IsHome }}on{{ end }}" data-key="0"{{ if .IsHome }} aria-current="page"{{ end }}>0:home</a>
     {{- range $i, $w := site.Params.wem.workspaces }}
     {{- $on := and $w.section (eq $w.section $cur) }}
     <a href="{{ if $w.external }}{{ $w.url }}{{ else }}{{ $w.url | relURL }}{{ end }}"
