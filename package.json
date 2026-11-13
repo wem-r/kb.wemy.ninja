@@ -4,8 +4,7 @@
     "hugo": "hugo",
     "serve": "hugo server --buildDrafts --disableFastRender",
     "build": "hugo --gc --minify",
-    "clean": "rm -rf public resources/_gen .hugo_build.lock",
-    "prepare": "git submodule update --init"
+    "clean": "rm -rf public resources/_gen .hugo_build.lock"
   },
   "devDependencies": {
     "hugo-extended": "0.168.0"

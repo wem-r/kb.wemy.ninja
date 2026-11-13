@@ -1,0 +1,21 @@
+{{- /* /graph.json — notes and the links between them, for the [4] graph tile.
+     Edges: note → its folder ("t"ree) and note → every note its content links to ("l"ink). */ -}}
+{{- $pages := where site.Pages "Kind" "in" (slice "page" "section") }}
+{{- $known := dict }}
+{{- range $pages }}{{ $known = merge $known (dict .RelPermalink true) }}{{ end }}
+{{- $nodes := slice }}
+{{- $links := slice }}
+{{- range $pages }}
+  {{- $u := .RelPermalink }}
+  {{- $nodes = $nodes | append (dict "id" $u "n" .Title "g" (.Section | default "home") "s" .IsSection) }}
+  {{- with .Parent }}{{ if and (not .IsHome) (index $known .RelPermalink) }}{{ $links = $links | append (dict "a" $u "b" .RelPermalink "k" "t") }}{{ end }}{{ end }}
+  {{- $seen := dict }}
+  {{- range findRESubmatch `href="(/[^"#?]*)` .Content }}
+    {{- $h := index . 1 }}
+    {{- if and (index $known $h) (ne $h $u) (not (index $seen $h)) }}
+      {{- $seen = merge $seen (dict $h true) }}
+      {{- $links = $links | append (dict "a" $u "b" $h "k" "l") }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- dict "nodes" $nodes "links" $links | jsonify }}

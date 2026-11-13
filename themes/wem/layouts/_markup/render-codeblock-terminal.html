@@ -1,0 +1,33 @@
+{{- /*
+  ```terminal fences: a shell session in a terminal window.
+
+    ```terminal
+    ```terminal {title="debian — ssh"}
+
+  Prompts are recognised in their full form:
+    user@host:~/dir$   root@host:/#   [user@host dir]$   $  #  %  ❯   PS C:\path>   C:\path>
+  The prompt gets .gp, the command is highlighted as bash (in .cmd), every other
+  line is output (.go). The copy button copies only the commands.
+  A block with no prompt at all is a list of commands: every line is a command.
+*/ -}}
+{{- $promptRE := `^((?:\[[^\]]+\]|[\w.-]+@[\w.-]+(?::[^\s$#%]*)?)\s?[$#%]|[$#%❯]|PS [^>]*>|[A-Za-z]:\\[^>]*>)( +)(.*)$` }}
+{{- $lines := split (strings.TrimRight "\n" .Inner) "\n" }}
+{{- $hasPrompt := false }}
+{{- range $lines }}{{ if findRE $promptRE . 1 }}{{ $hasPrompt = true }}{{ end }}{{ end }}
+{{- $out := slice }}
+{{- range $lines }}
+  {{- $m := findRESubmatch $promptRE . 1 }}
+  {{- if or $m (not $hasPrompt) }}
+    {{- $p := "" }}{{ $sp := "" }}{{ $c := . }}
+    {{- with $m }}{{ $p = index (index . 0) 1 }}{{ $sp = index (index . 0) 2 }}{{ $c = index (index . 0) 3 }}{{ end }}
+    {{- $hl := "" }}
+    {{- with $c }}{{ $hl = transform.Highlight . "bash" "hl_inline=true,noClasses=false" | string | replaceRE `^<code[^>]*>|</code>$` "" }}{{ end }}
+    {{- $out = $out | append (printf `<span class="line">%s%s<span class="cmd">%s</span></span>` (cond (ne $p "") (printf `<span class="gp">%s</span>` (htmlEscape $p)) "") $sp $hl) }}
+  {{- else }}
+    {{- $out = $out | append (printf `<span class="line go">%s</span>` (htmlEscape .)) }}
+  {{- end }}
+{{- end }}
+<div class="wm-term">
+  <div class="wm-term-bar"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><span class="ttl">{{ .Attributes.title | default "terminal" }}</span><button class="wm-copy" type="button" aria-label="Copy commands">copy</button></div>
+  <pre class="chroma"><code>{{ delimit $out "" | safeHTML }}</code></pre>
+</div>

@@ -1,0 +1,34 @@
+{{- /*
+  Images: resolve Obsidian-style paths to the files Hugo publishes.
+    1. remote (http/https/data) and site-absolute (/…) sources are used as-is;
+    2. the decoded path ("Pasted%20image%20….png" → "Pasted image ….png") is looked
+       up in the page's own resources, then in its folder (section) resources;
+    3. Obsidian "shortest path": a bare file name found anywhere below the page's
+       folder, then below each parent folder;
+    4. otherwise a warning, and the source is left as written.
+  Images are centred and lazy-loaded (CSS: .wm-content img).
+*/ -}}
+{{- $dest := .Destination }}
+{{- $u := urls.Parse $dest }}
+{{- $src := $dest }}
+{{- if and (not $u.Scheme) (not (hasPrefix $dest "/")) }}
+  {{- $lookup := strings.TrimPrefix "./" $u.Path }}
+  {{- $res := .Page.Resources.Get $lookup }}
+  {{- $sec := .Page.CurrentSection }}
+  {{- if and (not $res) $sec }}{{ $res = $sec.Resources.Get $lookup }}{{ end }}
+  {{- if not $res }}
+    {{- $base := path.Base $lookup }}
+    {{- $glob := printf "{%s,**/%s}" $base $base }}
+    {{- $res = index (.Page.Resources.Match $glob) 0 }}
+    {{- $s := $sec }}
+    {{- range seq 8 }}
+      {{- if and (not $res) $s }}
+        {{- $res = index ($s.Resources.Match $glob) 0 }}
+        {{- $s = $s.Parent }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- with $res }}{{ $src = .RelPermalink }}{{ else }}{{ warnf "image: %q not found next to %s or in its folders" $dest $.Page.File.Path }}{{ end }}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- /**/ -}}
