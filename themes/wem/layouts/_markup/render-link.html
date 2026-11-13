@@ -1,0 +1,33 @@
+{{- /*
+  Links. External links are left as-is. Internal ones are resolved like Obsidian:
+    1. [text](Page.md) / [text](../folder/) → that page's URL;
+    2. a file next to the note (PDF, ZIP, …), in its folder or any parent folder,
+       found by path or by bare file name → the published file;
+    3. otherwise the link is left as written.
+*/ -}}
+{{- $dest := .Destination }}
+{{- $u := urls.Parse $dest }}
+{{- $href := $dest }}
+{{- if and (not $u.Scheme) $u.Path (not (hasPrefix $dest "#")) }}
+  {{- $frag := cond (ne $u.Fragment "") (printf "#%s" $u.Fragment) "" }}
+  {{- $p := "" }}
+  {{- with .Page.GetPage $u.Path }}{{ $p = . }}{{ end }}
+  {{- if not $p }}{{ with .Page.GetPage (strings.TrimSuffix ".md" $u.Path) }}{{ $p = . }}{{ end }}{{ end }}
+  {{- if $p }}
+    {{- $href = printf "%s%s" $p.RelPermalink $frag }}
+  {{- else if not (hasPrefix $u.Path "/") }}
+    {{- $lookup := strings.TrimPrefix "./" $u.Path }}
+    {{- $res := .Page.Resources.Get $lookup }}
+    {{- $sec := .Page.CurrentSection }}
+    {{- if and (not $res) $sec }}{{ $res = $sec.Resources.Get $lookup }}{{ end }}
+    {{- if not $res }}
+      {{- $base := path.Base $lookup }}
+      {{- $glob := printf "{%s,**/%s}" $base $base }}
+      {{- $s := $sec }}
+      {{- range seq 8 }}{{ if and (not $res) $s }}{{ $res = index ($s.Resources.Match $glob) 0 }}{{ $s = $s.Parent }}{{ end }}{{ end }}
+    {{- end }}
+    {{- with $res }}{{ $href = .RelPermalink }}{{ end }}
+  {{- end }}
+{{- end -}}
+<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $u.Scheme }} rel="noopener"{{ end }}>{{ .Text }}</a>
+{{- /**/ -}}

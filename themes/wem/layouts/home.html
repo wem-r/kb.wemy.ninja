@@ -1,0 +1,47 @@
+{{ define "bodyclass" }}wm-page wm-home{{ end }}
+{{ define "desk" }}
+{{- $prompt := site.Params.wem.prompt | default "wem@kb" }}
+<div class="wm-desk wm-desk-home">
+  <main class="wm-t focus wm-t-home" id="wm-note" tabindex="-1">
+    <div class="wm-th"><span>[0] {{ $prompt }}: ~</span><span>zsh</span></div>
+    <div class="wm-tb wm-scroll">
+      <div class="wm-hero">
+        <p class="wm-big"><span class="gp">{{ $prompt }}</span><span class="dim">:</span><span class="cy">~</span><span class="dim">$</span><span class="wm-cursor" aria-hidden="true">█</span></p>
+        {{- with site.Params.description | default site.Language.Params.description }}<p class="wm-motd"># {{ . }}</p>{{ end }}
+      </div>
+
+      <div class="wm-sh">
+        <p><span class="gp">{{ $prompt }}:~$</span> ls ~</p>
+        <div class="wm-home-ws">
+          {{- range $i, $w := site.Params.wem.workspaces }}
+          {{- $desc := $w.desc }}
+          {{- if and (not $desc) $w.section }}{{ with site.GetPage $w.section }}{{ $desc = .Description }}{{ end }}{{ end }}
+          <a class="wm-home-card" href="{{ if $w.external }}{{ $w.url }}{{ else }}{{ $w.url | relURL }}{{ end }}"{{ if $w.external }} rel="noopener"{{ end }}>
+            <span class="k">{{ add $i 1 }}</span>
+            <span class="n">{{ $w.name }}{{ if $w.external }} ↗{{ else }}/{{ end }}</span>
+            <span class="d">{{ $desc }}</span>
+          </a>
+          {{- end }}
+        </div>
+
+        {{- $recent := first 6 (where site.RegularPages "Section" "in" (slice "kb" "cheatsheets" "blog")).ByLastmod.Reverse }}
+        {{- with $recent }}
+        <p><span class="gp">{{ $prompt }}:~$</span> ls -t ~/**/*.md | head</p>
+        <div class="wm-ls">
+          {{- range . }}
+          <div class="wm-ls-row">
+            <span class="date">{{ .Lastmod.Format "2006-01-02" }}</span>
+            <a class="name" href="{{ .RelPermalink }}">{{ strings.TrimSuffix "/" .RelPermalink }}</a>
+            <span class="ttl">{{ .Title }}</span>
+          </div>
+          {{- end }}
+        </div>
+        {{- end }}
+
+        <p><span class="gp">{{ $prompt }}:~$</span> <span class="wm-cursor" aria-hidden="true">█</span></p>
+        <p class="wm-hint">press <kbd>1</kbd>–<kbd>{{ len site.Params.wem.workspaces }}</kbd> to switch workspace, <kbd>/</kbd> to search</p>
+      </div>
+    </div>
+  </main>
+</div>
+{{ end }}

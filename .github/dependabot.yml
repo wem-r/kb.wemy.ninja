@@ -1,7 +1,7 @@
 version: 2
 updates:
-  # Hugo is pinned to what the OINK release needs; bump it together with the
-  # theme (see the setup report), not on its own.
+  # Hugo (hugo-extended in package.json) is bumped by hand, after checking the
+  # theme in themes/wem still builds.
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly }

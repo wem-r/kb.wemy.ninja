@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en" }}" data-theme="dark">
+<head>
+  {{- partial "head.html" . }}
+</head>
+<body class="{{ block "bodyclass" . }}wm-page{{ end }}">
+  <a class="wm-skip" href="#wm-note">Skip to content</a>
+  {{- partial "bar.html" . }}
+  {{- block "desk" . }}{{ end }}
+  {{- partial "search.html" . }}
+  {{- $js := slice (resources.Get "js/wm.js") (resources.Get "js/graph.js") (resources.Get "js/search.js") | resources.Concat "js/wm.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 baseURL = "https://kb.wemy.ninja/"
 title = "Wem"
 enableRobotsTXT = true
-enableGitInfo = true          # "Last modified" from git history (CI fetches full history)
+enableGitInfo = true          # "last modified" from git history (CI fetches full history)
 
-# OINK theme (https://github.com/pgsty/oink), git submodule in themes/oink
-theme = "oink"
+# Own theme, in themes/wem/ (tiling-window-manager look).
+theme = "wem"
 
 # Content lives under content/en/ so a second language is a config change, not a migration.
 defaultContentLanguage = "en"
@@ -25,8 +25,22 @@ defaultContentLanguageInSubdir = false
   tag = "tags"
   category = "categories"
 
+# Extra outputs used by the theme: /index.json (search) and /graph.json (graph tile).
+[outputFormats]
+  [outputFormats.searchindex]
+    mediaType = "application/json"
+    baseName = "index"
+    isPlainText = true
+    notAlternative = true
+  [outputFormats.graph]
+    mediaType = "application/json"
+    baseName = "graph"
+    isPlainText = true
+    notAlternative = true
+
 [outputs]
-  section = ["HTML", "RSS", "print"]
+  home = ["HTML", "RSS", "searchindex", "graph"]
+  section = ["HTML", "RSS"]
 
 [markup]
   [markup.goldmark]
@@ -34,59 +48,39 @@ defaultContentLanguageInSubdir = false
       unsafe = true           # allow raw HTML from converted notes (tables, iframes)
     [markup.goldmark.parser.attribute]
       block = true
+  [markup.highlight]
+    noClasses = false         # colours come from the theme's CSS (dark + light)
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4
   [markup.goldmark.renderHooks.link]
-    useEmbedded = "fallback"  # resolve [text](Page.md) links to page URLs
+    useEmbedded = "fallback"  # (the theme has its own link hook: pages + attachments)
 
 [params]
-  copyright = { authors = "wem", from_year = 2026 }
   github_repo = "https://github.com/wem-r/kb.wemy.ninja"
   github_branch = "main"
-  footer_center_info = ""     # no "Powered by Oink" in the footer
-  offline_search = true       # local Lunr search, no external service
 
-  [params.ui]
-    preset = "terminal"       # paper | slate | ink | terminal
-    preset_menu = false       # no reader-facing style switcher
-    pager_types = []          # no "← previous / next →" links at the bottom of pages
-    dark_mode = { enable = true, show_menu = true }   # Light / Dark / System menu
-    lastmod_commit = "none"   # "Last modified <date>" without the commit message
-    reading_time = false
-    code_copy = true
-    docs_section = "kb"
-    page_context_menu = false # no "Actions" button above the page title
-    sidebar_menu_compact = true
-    sidebar_menu_foldable = true
-    # Roboto Mono everywhere (files + @font-face: assets/scss/_styles_project.scss)
-    [params.ui.fonts]
-      ui      = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      body    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      heading = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      code    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      display = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      meta    = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-      brand   = "'Roboto Mono', ui-monospace, Menlo, Consolas, monospace"
-    [params.ui.feedback]
-      enable = false
-
-  [params.links]
-    [[params.links.user]]
-      name = "GitHub"
-      url = "https://github.com/wem-r"
-      icon = "fa-brands fa-github"
-      desc = "GitHub"
-    [[params.links.user]]
-      name = "wemy.ninja"
-      url = "https://wemy.ninja/"
-      icon = "fa-solid fa-house"
-      desc = "Main site"
-
-# Navbar entries for sites outside this repo (internal sections add
-# themselves via `menu:` in their _index.md front matter).
-[menus]
-  [[menus.main]]
-    name = "Tools"
-    url = "https://tools.wemy.ninja/"
-    weight = 40
+  [params.wem]
+    noindex = true            # <meta name="robots" content="noindex, nofollow">
+    prompt = "wem@kb"
+    # Top-bar workspaces, in order (keys 1-4). "section" marks it active on that section's pages.
+    [[params.wem.workspaces]]
+      name = "kb"
+      url = "kb/"
+      section = "kb"
+      desc = "knowledge base"
+    [[params.wem.workspaces]]
+      name = "cheat"
+      url = "cheatsheets/"
+      section = "cheatsheets"
+      desc = "cheatsheets"
+    [[params.wem.workspaces]]
+      name = "blog"
+      url = "blog/"
+      section = "blog"
+      desc = "posts"
+    [[params.wem.workspaces]]
+      name = "tools"
+      url = "https://tools.wemy.ninja/"
+      external = true
+      desc = "tools.wemy.ninja"

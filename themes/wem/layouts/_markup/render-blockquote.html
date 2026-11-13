@@ -1,0 +1,10 @@
+{{- /* Blockquotes, and Obsidian/GitHub callouts:  > [!NOTE] Optional title */ -}}
+{{- if eq .Type "alert" }}
+{{- $t := lower .AlertType }}
+<div class="wm-callout wm-callout-{{ $t }}">
+  <div class="wm-callout-h"><span class="k">[{{ $t }}]</span> {{ with .AlertTitle }}{{ . }}{{ end }}</div>
+  {{ .Text }}
+</div>
+{{- else }}
+<blockquote>{{ .Text }}</blockquote>
+{{- end }}

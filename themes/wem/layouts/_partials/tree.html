@@ -1,0 +1,39 @@
+{{- /* [1] tree tile: the root section as a `tree`-style file tree.
+     Context: the root section. Rendered once per root (partialCached); the
+     current page and its open folders are marked by wm.js from the URL. */ -}}
+<div class="wm-tree" role="tree">
+  <div class="tr root"><a class="lb" href="{{ .RelPermalink }}">~{{ strings.TrimSuffix "/" .RelPermalink }}</a></div>
+  {{- partial "tree-children.html" (dict "node" . "trail" slice) }}
+</div>
+
+{{- define "_partials/tree-children.html" }}
+{{- $kids := slice }}
+{{- range .node.Sections }}{{ $kids = $kids | append . }}{{ end }}
+{{- range .node.RegularPages }}{{ $kids = $kids | append . }}{{ end }}
+{{- $n := len $kids }}
+{{- range $i, $k := $kids }}
+  {{- $last := eq (add $i 1) $n }}
+  {{- $name := path.Base (strings.TrimSuffix "/" $k.RelPermalink) }}
+  {{- if $k.IsSection }}
+  <div class="tn" data-path="{{ $k.RelPermalink }}">
+    <div class="tr d" role="treeitem" aria-expanded="false">
+      {{- range $.trail }}<i class="g{{ if . }} pi{{ end }}"></i>{{ end }}<i class="g {{ if $last }}el{{ else }}te{{ end }}"></i>
+      <button class="bx" type="button" aria-label="Toggle {{ $name }}"></button>
+      <svg class="ic ic-c" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.5h4.5l1.5 1.5h7v8h-13z"/></svg>
+      <svg class="ic ic-o" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.5h4.5l1.5 1.5h6v2"/><path d="M1.5 3.5v9h11.5l2-5.5h-11.5l-2 5.5"/></svg>
+      <a class="lb" href="{{ $k.RelPermalink }}" title="{{ $k.Title }}">{{ $name }}</a>
+    </div>
+    <div class="kids" role="group">
+      {{- partial "tree-children.html" (dict "node" $k "trail" ($.trail | append (not $last))) }}
+    </div>
+  </div>
+  {{- else }}
+  <div class="tr f" role="treeitem" data-path="{{ $k.RelPermalink }}">
+    {{- range $.trail }}<i class="g{{ if . }} pi{{ end }}"></i>{{ end }}<i class="g {{ if $last }}el{{ else }}te{{ end }}"></i>
+    <span class="sp"></span>
+    <svg class="ic ic-f" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h6l3 3v10h-9z M9.5 1.5v3h3"/></svg>
+    <a class="lb" href="{{ $k.RelPermalink }}" title="{{ $k.Title }}">{{ $name }}.md</a>
+  </div>
+  {{- end }}
+{{- end }}
+{{- end }}

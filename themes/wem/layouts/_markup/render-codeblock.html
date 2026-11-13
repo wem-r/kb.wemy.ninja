@@ -1,0 +1,8 @@
+{{- /* Code fences: raised panel with a header (language or {title="…"}) and a copy button. */ -}}
+{{- $lang := .Type | default "text" }}
+{{- $title := .Attributes.title }}
+{{- $opts := merge (dict "noClasses" false) .Options }}
+<div class="wm-code" data-lang="{{ $lang }}">
+  <div class="wm-code-h"><span class="lang">{{ $lang }}</span>{{ with $title }}<span class="ttl">{{ . }}</span>{{ end }}<button class="wm-copy" type="button" aria-label="Copy code">copy</button></div>
+  {{- transform.Highlight .Inner $lang $opts }}
+</div>

@@ -1,0 +1,17 @@
+{{- /* /index.json — client-side search index (search.js). */ -}}
+{{- $out := slice }}
+{{- range where site.Pages "Kind" "in" (slice "page" "section") }}
+  {{- if and .File (not .Params.searchExclude) }}
+  {{- $heads := slice }}
+  {{- range findRESubmatch `<h[2-4][^>]*>(.*?)</h[2-4]>` .Content }}{{ $heads = $heads | append (index . 1 | replaceRE `<a class="wm-anchor".*?</a>` "" | plainify | htmlUnescape) }}{{ end }}
+  {{- $txt := .Content | replaceRE `(?s)<div class="wm-(code-h|term-bar)">.*?</div>|<a class="wm-anchor"[^>]*>#</a>` " " | plainify | htmlUnescape | htmlUnescape | replaceRE `\s+` " " }}
+  {{- $out = $out | append (dict
+      "t" .Title
+      "u" .RelPermalink
+      "s" (strings.TrimSuffix "/" .RelPermalink)
+      "h" (delimit $heads " · ")
+      "c" (strings.Substr $txt 0 6000)
+  ) }}
+  {{- end }}
+{{- end }}
+{{- $out | jsonify }}

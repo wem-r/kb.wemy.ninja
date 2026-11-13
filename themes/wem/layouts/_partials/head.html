@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- with site.Params.wem.noindex }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description | default site.Language.Params.description }}{{ end }}">
+{{- /* Apply the saved / system theme before first paint (no flash). */}}
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('wm-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+{{- $css := slice (resources.Get "css/wm.css") (resources.Get "css/chroma.css") | resources.Concat "css/wm.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<link rel="preload" href="{{ "fonts/roboto-mono-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- if fileExists "static/favicon.svg" }}
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+{{- end }}
+{{- if fileExists "static/favicon.ico" }}
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+{{- end }}
+{{- if fileExists "static/apple-touch-icon.png" }}
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+{{- end }}
+{{- if fileExists "static/site.webmanifest" }}
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+{{- end }}
+{{- with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+{{- end }}
+<meta name="wm-search-index" content="{{ "index.json" | relURL }}">
+<meta name="wm-graph" content="{{ "graph.json" | relURL }}">

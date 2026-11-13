@@ -1,0 +1,21 @@
+{{- /* Top bar: workspaces, window title, search, theme toggle. */ -}}
+{{- $cur := "" }}
+{{- if not .IsHome }}{{ with .FirstSection }}{{ $cur = .Section }}{{ end }}{{ end }}
+<header class="wm-bar" role="banner">
+  <nav class="wm-ws" aria-label="Workspaces">
+    {{- range $i, $w := site.Params.wem.workspaces }}
+    {{- $on := and $w.section (eq $w.section $cur) }}
+    <a href="{{ if $w.external }}{{ $w.url }}{{ else }}{{ $w.url | relURL }}{{ end }}"
+       class="{{ if $on }}on{{ end }}{{ if $w.external }} ext{{ end }}"
+       data-key="{{ add $i 1 }}"
+       {{- if $on }} aria-current="page"{{ end }}
+       {{- if $w.external }} rel="noopener"{{ end }}>{{ add $i 1 }}:{{ $w.name }}</a>
+    {{- end }}
+  </nav>
+  <div class="wm-title">
+    {{- if .IsHome }}{{ site.Params.wem.prompt | default "~" }} — {{ site.Title }}
+    {{- else }}~{{ strings.TrimSuffix "/" .RelPermalink }} — {{ .Title }}{{ end -}}
+  </div>
+  <button class="wm-mod wm-search-open" type="button" aria-label="Search (press /)"><span class="k">/</span> search</button>
+  <button class="wm-mod wm-theme-toggle" type="button" aria-label="Toggle light / dark"><span class="ic">◐</span> <span class="lbl">dark</span></button>
+</header>

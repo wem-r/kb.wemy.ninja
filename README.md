@@ -1,19 +1,19 @@
 # kb.wemy.ninja
 
-Personal knowledge base — [Hugo](https://gohugo.io/) + [OINK](https://github.com/pgsty/oink)
-(Terminal preset), deployed to GitHub Pages at <https://kb.wemy.ninja/>.
+Personal knowledge base, built with [Hugo](https://gohugo.io/) and its own theme
+(`themes/wem/`, a tiling-window-manager look), deployed to GitHub Pages at
+<https://kb.wemy.ninja/>.
 
 ## Requirements
 
-Node 24 LTS (npm 11) — only to install the pinned Hugo extended binary.
-The theme is a git submodule in `themes/oink`; it bundles all its assets
-(no Sass, Bootstrap or npm packages of its own).
+Node 24 LTS (npm 11), only to install the pinned Hugo extended binary.
+The theme lives in this repo: no submodule, no Sass, no npm packages.
 
 ## Commands
 
 ```sh
-git clone --recurse-submodules https://github.com/wem-r/kb.wemy.ninja.git
-npm ci              # installs the pinned Hugo, inits the theme submodule
+git clone https://github.com/wem-r/kb.wemy.ninja.git
+npm ci              # installs the pinned Hugo
 npm run serve       # http://localhost:1313, drafts included
 npm run build       # production build into public/
 ```
@@ -22,18 +22,35 @@ npm run build       # production build into public/
 
 | Path | What |
 |---|---|
-| `hugo.toml` | Site config and OINK params (`params.ui.preset = "terminal"`) |
-| `data/home/en.yaml` | Home page (OINK landing: hero + cards) |
-| `content/en/docs/` | Knowledge Base (`_index.md` + `weight` for ordering) |
-| `content/en/cheatsheets/` | Cheatsheets (own sidebar: `sidebar_root_for: self`) |
-| `content/en/blog/` | Blog posts |
-| `assets/scss/_styles_project.scss` | Site styles (terminal window frame) |
-| `layouts/` | Site overrides of the theme — re-check them on every OINK upgrade |
+| `hugo.toml` | Site config; workspaces of the top bar in `[params.wem]` |
+| `content/en/kb/` | Knowledge Base (`_index.md` + `weight` for ordering, `no_list: true` to hide the `ls -l` listing) |
+| `content/en/cheatsheets/` | Cheatsheets (workspace 2) |
+| `content/en/blog/` | Blog (workspace 3) |
+| `themes/wem/` | The theme (see below) |
+| `layouts/robots.txt` | Disallow everything |
 | `scripts/` | One-off content helpers (image conversion/extraction) |
-| `static/` | Copied as-is (`CNAME`) |
+| `static/` | Copied as-is (`CNAME`, favicons) |
 
-## Updating OINK / Hugo
+## The theme (`themes/wem/`)
 
-Read the OINK changelog, move the submodule to the new tag, bump
-`hugo-extended` if the release needs a newer Hugo, then `npm ci && npm run build`
-and check the overrides listed in `layouts/`.
+| File | What |
+|---|---|
+| `assets/css/wm.css` | All styles. Colours are the token blocks at the top (`dark` = cyberpunk, `light` = to redesign) |
+| `assets/css/chroma.css` | Code highlighting colours, generated with `hugo gen chromastyles` |
+| `assets/js/wm.js` | Theme toggle, tree, toc, scroll %, copy buttons, phone tabs, keyboard |
+| `assets/js/search.js` / `graph.js` | Search overlay (`/`) and the local graph tile |
+| `layouts/baseof.html`, `_partials/desk.html` | Page frame: top bar + tiles [1] tree, [2] note, [3] toc, [4] graph |
+| `layouts/home.html`, `404.html` | Home screen and 404 |
+| `layouts/home.searchindex.json`, `home.graph.json` | `/index.json` (search) and `/graph.json` (graph), built on every deploy |
+| `layouts/_markup/` | Render hooks: code blocks, ```` ```terminal ````, callouts, images, headings |
+
+Content conventions:
+
+- ```` ```terminal ```` blocks: lines starting with a prompt (`user@host:~$`, `#`, `PS C:\>`, …) are commands,
+  the others output; the copy button copies commands only.
+- Callouts: `> [!NOTE] Title`, `> [!WARNING]`, `> [!TIP]`, …
+- Images: Obsidian paths work as-is (`IMG/Pasted image ….png`, or just the file name).
+
+## Updating Hugo
+
+Bump `hugo-extended` in `package.json`, `npm install`, then `npm run build` and look at a few pages.

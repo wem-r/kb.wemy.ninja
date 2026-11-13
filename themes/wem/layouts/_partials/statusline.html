@@ -1,0 +1,17 @@
+{{- /* vim-style status line: mode · last modified · source ↗ ··· scroll % */ -}}
+{{- $src := "" }}
+{{- with .File }}{{ with site.Params.github_repo }}
+  {{- $rel := strings.TrimPrefix (printf "%s/" hugo.WorkingDir) $.File.Filename }}
+  {{- $src = printf "%s/blob/%s/%s" . (site.Params.github_branch | default "main") ($rel | replaceRE " " "%20") }}
+{{- end }}{{ end }}
+<div class="wm-status">
+  <b class="mode">NORMAL</b>
+  {{- if and .Lastmod (not .Lastmod.IsZero) }}
+  <span class="seg">last modified {{ .Lastmod.Format "2006-01-02" }}</span>
+  {{- end }}
+  {{- with $src }}
+  <a class="seg src" href="{{ . }}" target="_blank" rel="noopener">source ↗</a>
+  {{- end }}
+  <span class="fill"></span>
+  <span class="pct" id="wm-pct">top</span>
+</div>

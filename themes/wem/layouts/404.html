@@ -1,0 +1,23 @@
+{{ define "bodyclass" }}wm-page wm-home{{ end }}
+{{ define "desk" }}
+{{- $prompt := site.Params.wem.prompt | default "wem@kb" }}
+<div class="wm-desk wm-desk-home">
+  <main class="wm-t focus wm-t-home" id="wm-note" tabindex="-1">
+    <div class="wm-th"><span>[!] 404</span><span>exit 1</span></div>
+    <div class="wm-tb wm-scroll">
+      <div class="wm-sh">
+        <p><span class="gp">{{ $prompt }}:~$</span> cd <span class="wm-404-path">/this/page</span></p>
+        <p class="err">cd: no such file or directory: <span class="wm-404-path">/this/page</span></p>
+        <p><span class="gp">{{ $prompt }}:~$</span> <span class="wm-cursor" aria-hidden="true">█</span></p>
+      </div>
+      <p>The page doesn't exist, or it moved. Press <kbd>/</kbd> to search, or go to:</p>
+      <div class="wm-home-ws">
+        {{- range $i, $w := site.Params.wem.workspaces }}{{ if not $w.external }}
+        <a class="wm-home-card" href="{{ $w.url | relURL }}"><span class="k">{{ add $i 1 }}</span><span class="n">{{ $w.name }}/</span><span class="d"></span></a>
+        {{- end }}{{ end }}
+        <a class="wm-home-card" href="{{ site.Home.RelPermalink }}"><span class="k">~</span><span class="n">home</span><span class="d"></span></a>
+      </div>
+    </div>
+  </main>
+</div>
+{{ end }}

@@ -1,0 +1,18 @@
+{{- .Content }}
+{{- if and (not .IsPage) (not .Params.no_list) }}
+  {{- $pages := .Pages }}
+  {{- if eq .Kind "term" }}{{ $pages = .Pages.ByDate.Reverse }}{{ end }}
+  {{- if $pages }}
+  <div class="wm-ls">
+    <div class="wm-ls-cmd"><span class="gp">{{ site.Params.wem.prompt | default "wem@kb" }}:~{{ strings.TrimSuffix "/" .RelPermalink }}$</span> ls -l</div>
+    {{- range $pages }}
+    <div class="wm-ls-row">
+      <span class="perm">{{ if not .IsPage }}drwxr-xr-x{{ else }}-rw-r--r--{{ end }}</span>
+      <span class="date">{{ with .Date }}{{ if not .IsZero }}{{ .Format "2006-01-02" }}{{ else }}----------{{ end }}{{ end }}</span>
+      <a class="name{{ if not .IsPage }} d{{ end }}" href="{{ .RelPermalink }}">{{ path.Base (strings.TrimSuffix "/" .RelPermalink) }}{{ if not .IsPage }}/{{ end }}</a>
+      <span class="ttl">{{ .Title }}</span>
+    </div>
+    {{- end }}
+  </div>
+  {{- end }}
+{{- end }}

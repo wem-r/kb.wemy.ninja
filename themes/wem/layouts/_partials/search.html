@@ -1,0 +1,13 @@
+{{- /* Search overlay, opened with "/" or the bar button (search.js). */ -}}
+<div class="wm-search" id="wm-search" hidden>
+  <div class="wm-t focus wm-search-win" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="wm-th"><span>[/] search</span><span>esc to close</span></div>
+    <div class="wm-search-in">
+      <span class="gp">&gt;</span>
+      <input id="wm-search-q" type="search" placeholder="type to search…" autocomplete="off" spellcheck="false" aria-label="Search query">
+      <span class="wm-search-n" id="wm-search-n"></span>
+    </div>
+    <ol class="wm-search-res" id="wm-search-res" role="listbox"></ol>
+    <div class="wm-foot"><span>↑↓ move · enter open</span><span>title &gt; headings &gt; text</span></div>
+  </div>
+</div>
