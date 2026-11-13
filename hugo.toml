@@ -1,4 +1,4 @@
-baseURL = "https://kb.wemy.ninja/"
+baseURL = "https://wemy.ninja/"
 title = "Wem"
 enableRobotsTXT = true
 enableGitInfo = true          # "last modified" from git history (CI fetches full history)
