@@ -332,7 +332,10 @@ changement des droits root avec `%`
 ![](IMG/Linux_CookBook_img13.png)
 
 ```sql
-#CREATE [USER](https://172.20.10.2/pma/url.php?url=https://dev.mysql.com/doc/refman/5.5/en/information-functions.html#function_user) 'user'@'%' IDENTIFIED WITH mysql_native_password AS '***';GRANT USAGE ON *.* TO 'user'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;CREATE DATABASE IF NOT EXISTS `user`;GRANT ALL PRIVILEGES ON `user`.* TO 'user'@'%';
+CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password AS '***';
+GRANT USAGE ON *.* TO 'user'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+CREATE DATABASE IF NOT EXISTS `user`;
+GRANT ALL PRIVILEGES ON `user`.* TO 'user'@'%';
 ```
   
 install du service ftp 
