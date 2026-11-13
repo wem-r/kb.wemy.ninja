@@ -132,7 +132,7 @@
     if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
     var tag = (ev.target.tagName || '').toLowerCase();
     if (tag === 'input' || tag === 'textarea' || ev.target.isContentEditable) return;
-    if (/^[1-9]$/.test(ev.key)) {
+    if (/^[0-9]$/.test(ev.key)) {
       var ws = $('.wm-ws a[data-key="' + ev.key + '"]');
       if (ws) { ev.preventDefault(); location.href = ws.href; }
     } else if (scroller && (ev.key === 'j' || ev.key === 'k')) {
