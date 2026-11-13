@@ -2,7 +2,8 @@
      Context: the root section. Rendered once per root (partialCached); the
      current page and its open folders are marked by wm.js from the URL. */ -}}
 <div class="wm-tree" role="tree">
-  <div class="tr root"><a class="lb" href="{{ .RelPermalink }}">~{{ strings.TrimSuffix "/" .RelPermalink }}</a></div>
+  <div class="tr root">{{- $rn := strings.TrimSuffix "/" .RelPermalink }}{{ with .File }}{{ $rn = printf "/%s" (path.Base .Dir) }}{{ end }}
+  <a class="lb" href="{{ .RelPermalink }}">~{{ $rn }}</a></div>
   {{- partial "tree-children.html" (dict "node" . "trail" slice) }}
 </div>
 
@@ -13,7 +14,9 @@
 {{- $n := len $kids }}
 {{- range $i, $k := $kids }}
   {{- $last := eq (add $i 1) $n }}
+  {{- /* real folder / file names from content/, like the vault */}}
   {{- $name := path.Base (strings.TrimSuffix "/" $k.RelPermalink) }}
+  {{- with $k.File }}{{ if $k.IsSection }}{{ $name = path.Base .Dir }}{{ else }}{{ $name = .LogicalName }}{{ end }}{{ end }}
   {{- if $k.IsSection }}
   <div class="tn" data-path="{{ $k.RelPermalink }}">
     <div class="tr d" role="treeitem" aria-expanded="false">
@@ -32,7 +35,7 @@
     {{- range $.trail }}<i class="g{{ if . }} pi{{ end }}"></i>{{ end }}<i class="g {{ if $last }}el{{ else }}te{{ end }}"></i>
     <span class="sp"></span>
     <svg class="ic ic-f" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h6l3 3v10h-9z M9.5 1.5v3h3"/></svg>
-    <a class="lb" href="{{ $k.RelPermalink }}" title="{{ $k.Title }}">{{ $name }}.md</a>
+    <a class="lb" href="{{ $k.RelPermalink }}" title="{{ $k.Title }}">{{ $name }}</a>
   </div>
   {{- end }}
 {{- end }}

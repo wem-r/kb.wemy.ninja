@@ -2,6 +2,6 @@
 {{- range .Ancestors.Reverse }}{{ if not .IsHome }}{{ $crumbs = $crumbs | append . }}{{ end }}{{ end }}
 {{- if $crumbs }}
 <nav class="wm-crumbs" aria-label="Breadcrumb">
-  {{- range $i, $p := $crumbs }}{{ if $i }} <span class="sep">/</span> {{ end }}<a href="{{ $p.RelPermalink }}">{{ path.Base (strings.TrimSuffix "/" $p.RelPermalink) }}</a>{{ end -}}
+  {{- range $i, $p := $crumbs }}{{ if $i }} <span class="sep">/</span> {{ end }}<a href="{{ $p.RelPermalink }}">{{ with $p.File }}{{ path.Base .Dir }}{{ else }}{{ path.Base (strings.TrimSuffix "/" $p.RelPermalink) }}{{ end }}</a>{{ end -}}
 </nav>
 {{- end }}
