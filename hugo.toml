@@ -70,7 +70,7 @@ defaultContentLanguageInSubdir = false
       section = "kb"
       desc = "knowledge base"
     [[params.wem.workspaces]]
-      name = "cheat"
+      name = "cheatsheets"
       url = "cheatsheets/"
       section = "cheatsheets"
       desc = "cheatsheets"
