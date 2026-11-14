@@ -328,3 +328,4 @@ kbd { font: inherit; padding: 0 5px; border: 1px solid var(--line); border-radiu
   :root { --tree-w: 230px; --side-w: 240px; }
 }
 @media (prefers-reduced-motion: reduce) { .wm-cursor { animation: none; } }
+.wm-title { border-left: 1px solid var(--line); padding-left: 10px; }
