@@ -1,0 +1,3 @@
+[submodule "themes/wem"]
+	path = themes/wem
+	url = https://github.com/wem-r/hugo-theme-wem.git
