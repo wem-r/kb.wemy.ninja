@@ -1,4 +1,4 @@
 ---
-title: VMWare
+title: VMware
 weight: 2
 ---
