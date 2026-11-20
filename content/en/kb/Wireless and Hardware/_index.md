@@ -1,4 +1,4 @@
 ---
 title: Wireless and Hardware
-weight: 10
+weight: 11
 ---
